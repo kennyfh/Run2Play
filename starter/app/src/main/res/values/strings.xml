@@ -16,4 +16,5 @@
 
 <resources>
   <string name="app_name">BuildYourFirstMap</string>
+    <string name="no_account">You have no an account</string>
 </resources>
