@@ -47,6 +47,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.android.material:material:1.5.0'
     testImplementation 'junit:junit:4.13.2'
+    def nav_version = "2.4.2"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     // Dependency to include Maps SDK for Android
     implementation 'com.google.android.gms:play-services-maps:18.0.2'

@@ -63,9 +63,9 @@
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
         android:layout_below="@id/passwordTil"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="Login" />
 
     <!-- Not have acc? Sign up -->
 
@@ -73,10 +73,10 @@
         android:id="@+id/noAccountTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_account"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
         android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="@string/no_account"
         android:textStyle="bold" />
 
 

@@ -18,7 +18,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var  binding: ActivitySignUpBinding
 
     //ActionBar
-    private lateinit var actionBar: ActionBar
+    //private lateinit var actionBar: ActionBar
 
     //ProgressDialog
     private lateinit var progressDialog: ProgressDialog
@@ -35,10 +35,10 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //configure ActionBar
-        actionBar = supportActionBar!!
-        actionBar.title = "Sign Up"
-        actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.setDisplayShowHomeEnabled(true)
+        //actionBar = supportActionBar!!
+       // actionBar.title = "Sign Up"
+       // actionBar.setDisplayHomeAsUpEnabled(true)
+       // actionBar.setDisplayShowHomeEnabled(true)
 
         //configure progress dialog
         progressDialog = ProgressDialog(this)

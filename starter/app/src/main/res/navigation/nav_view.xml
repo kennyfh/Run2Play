@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view"
+    app:startDestination="@id/logros">
+
+    <fragment
+        android:id="@+id/retos"
+        android:name="com.google.codelabs.buildyourfirstmap.Retos"
+        android:label="fragment_retos"
+        tools:layout="@layout/fragment_retos" />
+    <fragment
+        android:id="@+id/logros"
+        android:name="com.google.codelabs.buildyourfirstmap.Logros"
+        android:label="fragment_logros"
+        tools:layout="@layout/fragment_logros" />
+    <fragment
+        android:id="@+id/mapa"
+        android:name="com.google.codelabs.buildyourfirstmap.Mapa"
+        android:label="fragment_mapa"
+        tools:layout="@layout/fragment_map" />
+</navigation>

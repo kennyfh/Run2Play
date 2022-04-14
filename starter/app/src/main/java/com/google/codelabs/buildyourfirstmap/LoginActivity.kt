@@ -8,7 +8,7 @@ import android.os.PatternMatcher
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
+//import androidx.appcompat.app.ActionBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityLoginBinding
 
@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     //ViewBinding
     private lateinit var binding:ActivityLoginBinding
     //ActionBar
-    private lateinit var actionBar: ActionBar
+    //private lateinit var actionBar: ActionBar
     //ProgresDialog
     private lateinit var progressDialog: ProgressDialog
     //FirebaseAuth
@@ -32,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //configure actionbar
-        actionBar = supportActionBar!!
-        actionBar.title = "Login"
+       // actionBar = supportActionBar!!
+        //actionBar.title = "Login"
 
         //configure progress dialog
         progressDialog = ProgressDialog(this)
@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this,"LoggedIn as $email" , Toast.LENGTH_SHORT).show()
 
                 //open profile
-                startActivity(Intent(this,ProfileActivity::class.java))
+                startActivity(Intent(this,MainActivity::class.java))
                 finish()
 
         }
@@ -116,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser != null){
             //user is logged in
-            startActivity(Intent(this,ProfileActivity::class.java))
+            startActivity(Intent(this,MainActivity::class.java))
             finish()
         }
     }
