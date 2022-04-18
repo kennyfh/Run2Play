@@ -100,7 +100,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this,"Account created with email $email", Toast.LENGTH_SHORT).show()
 
                 //open profile
-                startActivity(Intent(this,ProfileActivity::class.java))
+                startActivity(Intent(this,MainActivity::class.java))
                 finish()
 
             }

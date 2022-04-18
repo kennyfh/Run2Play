@@ -16,7 +16,7 @@ import com.google.codelabs.buildyourfirstmap.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
 
     //ViewBinding
-    private lateinit var binding:ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     //ActionBar
     //private lateinit var actionBar: ActionBar
     //ProgresDialog

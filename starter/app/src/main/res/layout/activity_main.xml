@@ -6,81 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Barra marcadores -->
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#673AB7"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.tabs.TabLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mainContainer"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_view" />
+
+        <!-- Menu Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            app:tabBackground="@drawable/top_marcadores_colors">
+            android:background="@color/purple_500"
+            app:itemIconTint="@drawable/botom_nav_colors"
+            app:itemTextColor="@drawable/botom_nav_colors"
+            app:menu="@menu/bottom_nav_menu">
 
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/monedaPrincipal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Moneda 1" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/iconSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_settings_24" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/monedaSecundaria"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Moneda 2" />
-        </com.google.android.material.tabs.TabLayout>
-
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </LinearLayout>
-
-    <!-- Pantalla contenido -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mainContainer"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_view" />
-
-
-    <!-- Menu Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        app:itemIconTint="@drawable/botom_nav_colors"
-        app:itemTextColor="@drawable/botom_nav_colors"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

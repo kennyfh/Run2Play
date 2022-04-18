@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_view"
-    app:startDestination="@id/logros">
+    app:startDestination="@id/mapa">
 
     <fragment
         android:id="@+id/retos"

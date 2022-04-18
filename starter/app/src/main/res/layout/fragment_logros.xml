@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Logros">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="#673AB7"
         android:orientation="horizontal">
 
         <TextView
@@ -32,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:autoText="false"
             android:background="@drawable/style_bordes_text"
             android:fontFamily="@font/titan_one"
             android:gravity="center"
@@ -44,10 +45,17 @@
 
     </LinearLayout>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.google.codelabs.buildyourfirstmap.MarcadorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_marcador" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="AQUI VA EL MENU DE LOGROS" />
 
-</FrameLayout>
+</LinearLayout>

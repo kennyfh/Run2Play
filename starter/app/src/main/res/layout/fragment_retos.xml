@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Retos">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#673AB7"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tituloLogros"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_bordes_text"
+            android:fontFamily="@font/titan_one"
+            android:gravity="center"
+            android:text="LOGROS"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.google.codelabs.buildyourfirstmap.MarcadorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_marcador"/>
+
     <TextView
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="AQUI VA EL MENU DE RETOS" />
+        android:gravity="center"
+        android:text="AQUI VA EL MENU DE LOGROS" />
 
-</FrameLayout>
+</LinearLayout>
