@@ -4,13 +4,14 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PatternMatcher
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.codelabs.buildyourfirstmap.databinding.ActivitySignUpBinding
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private var email = ""
     private var password = ""
+    private var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,7 @@ class SignUpActivity : AppCompatActivity() {
         //get data
         email = binding.emailEt.text.toString().trim()
         password = binding.passwordEt.text.toString().trim()
+        username = binding.usernameEt.text.toString().trim()
 
         //validate data
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
@@ -77,6 +80,9 @@ class SignUpActivity : AppCompatActivity() {
 
             //password length is less than 6
             binding.passwordEt.error = "Password must atleast be 6 characters long"
+        }
+        else if(username.length<4){
+            binding.passwordEt.error = "Username must atleast be 4 characters long"
         }
         else{
 
@@ -98,7 +104,7 @@ class SignUpActivity : AppCompatActivity() {
                 val firebaseUser = firebaseAuth.currentUser
                 val email = firebaseUser!!.email
                 Toast.makeText(this,"Account created with email $email", Toast.LENGTH_SHORT).show()
-
+                createCustomUser(firebaseUser)
                 //open profile
                 startActivity(Intent(this,MainActivity::class.java))
                 finish()
@@ -111,7 +117,24 @@ class SignUpActivity : AppCompatActivity() {
 
             }
     }
+    private fun createCustomUser(firebaseUser: FirebaseUser) {
 
+        val user = hashMapOf(
+            "currencyOne" to 0,
+            "currencyTwo" to 0,
+            "mail" to email,
+            "uId" to firebaseUser!!.uid,
+            "username" to username
+
+        )
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document().set(user)
+            .addOnSuccessListener { Log.d("tag", "Se ha metido un nuevo usuario lets goo")}
+            .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
+
+
+
+    }
     override fun onSupportNavigateUp(): Boolean {
 
         onBackPressed() //go back to previous activity, when back button of actiobar clicked

@@ -7,13 +7,24 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+import com.google.codelabs.buildyourfirstmap.databinding.ActivityMainBinding
+
+import kotlinx.android.synthetic.main.fragment_marcador.view.*
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController:NavController
+    private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+
+        setContentView(binding.root)
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
         navController = navHostFragment.navController

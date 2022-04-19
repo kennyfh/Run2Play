@@ -14,25 +14,28 @@
         android:background="#7149B8"
         android:orientation="horizontal">
 
+
+
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextColor="@color/white">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/monedaPrincipal"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Moneda 1" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/iconSettings"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_baseline_settings_24" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/monedaSecundaria"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Moneda 2" />

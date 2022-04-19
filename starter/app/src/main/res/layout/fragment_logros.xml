@@ -24,7 +24,7 @@
             android:background="@drawable/style_relleno_text"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="Daniel Gallardo"
+            android:text="Cargando ..."
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:drawableStartCompat="@drawable/ic_baseline_account_circle_24" />

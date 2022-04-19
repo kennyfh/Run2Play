@@ -23,24 +23,41 @@
         android:layout_below="@+id/titleLabelTv"
         style="@style/TextAppearance.MaterialComponents.Caption"/>
 
-    <!-- Email -->
+    <!-- Username -->
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailTil"
+        android:id="@+id/usernameTil"
         android:layout_above="@+id/passwordTil"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/usernameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- Email -->
+
+    <!-- Password -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/passwordTil"
+        android:layout_marginBottom="78dp">
+
+        <EditText
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTil"
         app:passwordToggleEnabled="true"
