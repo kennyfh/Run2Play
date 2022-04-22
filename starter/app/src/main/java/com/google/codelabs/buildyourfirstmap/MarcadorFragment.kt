@@ -1,5 +1,7 @@
 package com.google.codelabs.buildyourfirstmap
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,12 +12,16 @@ import com.google.codelabs.buildyourfirstmap.databinding.FragmentMarcadorBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_marcador.*
+import kotlinx.android.synthetic.main.fragment_marcador.view.*
 
 
 class MarcadorFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
     private lateinit var _binding: FragmentMarcadorBinding
+
+
 
 
     override fun onCreateView(
@@ -39,8 +45,10 @@ class MarcadorFragment : Fragment() {
         checkCurrencyOne(uId)
         checkCurrencyTwo(uId)
 
-
-
+        binding.tabLayout.setOnClickListener {
+            firebaseAuth.signOut()
+            checkUser()
+        }
 
     }
 
@@ -56,7 +64,14 @@ class MarcadorFragment : Fragment() {
 
 
         }
-        else return ""
+        else {
+            activity?.let{
+                val intent = Intent (it, LoginActivity::class.java)
+                it.startActivity(intent)
+            }
+            return ""
+        }
+
     }
 
     private fun checkCurrencyOne(userName: String){

@@ -26,10 +26,9 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Moneda 1" />
+                 />
 
             <com.google.android.material.tabs.TabItem
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_baseline_settings_24" />
@@ -38,7 +37,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Moneda 2" />
+                 />
         </com.google.android.material.tabs.TabLayout>
 
     </LinearLayout>

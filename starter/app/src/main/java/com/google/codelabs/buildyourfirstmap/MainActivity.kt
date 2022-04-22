@@ -9,8 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityMainBinding
 
-import kotlinx.android.synthetic.main.fragment_marcador.view.*
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController:NavController
