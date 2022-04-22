@@ -31,11 +31,12 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/mapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="AQUI VA EL MAPA" />
+
+        />
 
 </LinearLayout>

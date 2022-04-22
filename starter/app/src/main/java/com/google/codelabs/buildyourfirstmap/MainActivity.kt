@@ -31,5 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         setupWithNavController(bottomNavigationView, navController)
+
+        // TODO cambiar r.id.fragmentCOntainerview
+        val mapFragment = Mapa()
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragmentContainerView, mapFragment)
+            .commit()
+
+
     }
 }

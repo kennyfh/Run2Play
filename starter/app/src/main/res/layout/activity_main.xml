@@ -21,6 +21,8 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_view" />
 
+
+
         <!-- Menu Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
