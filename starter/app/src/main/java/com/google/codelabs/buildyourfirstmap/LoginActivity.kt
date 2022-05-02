@@ -4,11 +4,9 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PatternMatcher
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Toast
-//import androidx.appcompat.app.ActionBar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityLoginBinding
 
@@ -98,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this,"LoggedIn as $email" , Toast.LENGTH_SHORT).show()
 
                 //open profile
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
 
         }
@@ -116,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser != null){
             //user is logged in
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }

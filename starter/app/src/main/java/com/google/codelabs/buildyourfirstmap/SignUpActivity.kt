@@ -106,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this,"Account created with email $email", Toast.LENGTH_SHORT).show()
                 createCustomUser(firebaseUser)
                 //open profile
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
 
             }

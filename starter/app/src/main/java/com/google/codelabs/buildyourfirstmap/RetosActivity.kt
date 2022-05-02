@@ -1,24 +1,23 @@
 package com.google.codelabs.buildyourfirstmap
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
-
-class MainActivity : AppCompatActivity() {
-
+class RetosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mapa)
+        setContentView(R.layout.activity_retos)
 
         // Initialize and assign variable
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         // Set Home selected
-        bottomNavigation.selectedItemId = R.id.mapa;
+        bottomNavigation.selectedItemId = R.id.retos;
+
 
         // Perform item selected listener
         bottomNavigation.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     return@OnItemSelectedListener true
                 }
                 R.id.mapa -> {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity(Intent(applicationContext, MapaActivity::class.java))
                     overridePendingTransition(0, 0)
                     return@OnItemSelectedListener true
                 }
