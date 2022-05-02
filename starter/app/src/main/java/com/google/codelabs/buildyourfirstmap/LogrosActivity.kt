@@ -65,7 +65,7 @@ class LogrosActivity : AppCompatActivity() {
     private fun initRecyclerView(){
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerLogros)
         recyclerView.layoutManager = GridLayoutManager(this, 4)
-        recyclerView.adapter = LogrosAdapter(logrosProvider.logrosList)
+        recyclerView.adapter = LogrosAdapter(logrosProvider.setup())
     }
 
     private fun checkUser(): String {
