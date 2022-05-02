@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser != null){
             //user is logged in
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MapaActivity::class.java))
             finish()
         }
     }

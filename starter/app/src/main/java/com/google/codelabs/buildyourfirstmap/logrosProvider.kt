@@ -6,27 +6,27 @@ class logrosProvider {
         val logrosList = listOf<Logro>(
             Logro(
                 "Logro1",
-                "url1"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             ),
             Logro(
                 "Logro2",
-                "url2"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             ),
             Logro(
                 "Logro3",
-                "url3"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             ),
             Logro(
                 "Logro4",
-                "url4"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             ),
             Logro(
                 "Logro5",
-                "url5"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             ),
             Logro(
                 "Logro6",
-                "url6"
+                "https://images.app.goo.gl/qrNfLGXFvEWAW2227"
             )
         )
     }

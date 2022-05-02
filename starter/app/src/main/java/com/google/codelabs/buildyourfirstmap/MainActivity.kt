@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     return@OnItemSelectedListener true
                 }
                 R.id.mapa -> {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    startActivity(Intent(applicationContext, MapaActivity::class.java))
                     overridePendingTransition(0, 0)
                     return@OnItemSelectedListener true
                 }

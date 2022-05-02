@@ -23,9 +23,11 @@
             android:background="@color/white"
             android:gravity="center">
 
+
         </SearchView>
 
         <include
+            android:id="@+id/marcador"
             layout="@layout/activity_marcador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

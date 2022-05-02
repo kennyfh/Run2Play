@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+
 class LogrosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val logroTitle = view.findViewById<TextView>(R.id.tvLogro)
