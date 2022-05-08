@@ -2,9 +2,13 @@ package com.google.codelabs.buildyourfirstmap
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,15 +18,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityLogrosBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import org.w3c.dom.Comment
+import java.io.File
 
 class LogrosActivity : AppCompatActivity() {
 
@@ -40,10 +43,14 @@ class LogrosActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         val uId = checkUser()
-        database = Firebase.database.reference
+
         checkName(uId)
 
-        initRecyclerView()
+
+
+        getUserData()
+
+
 
         // Initialize and assign variable
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -74,7 +81,108 @@ class LogrosActivity : AppCompatActivity() {
         })
     }
 
-    private fun initRecyclerView(){
+
+    private fun getUserData(){
+        var cnt = 0
+        var cntImage = 0
+        var userName = "IGuowIU1wuPt6SjUiKDfXpFXk6K2"
+        val logName = "X48lZc4Uh3gLT7FWnhFl"
+        val db = FirebaseFirestore.getInstance()
+        db.collection("achievements").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents){
+                    Log.w("tag", "${document.id} => omg")
+
+                    val lLay = binding.achievementsTable.getChildAt(cnt) as LinearLayout
+                    val tViwy = lLay.getChildAt(1) as TextView
+                    val tImg = lLay.getChildAt(0) as ImageView
+                    tViwy.text = document.data?.get("title")?.toString()
+
+                    db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
+                        users ->
+
+                        if (users.isEmpty){
+                            val imageName = "iconInactive" + (cntImage + 1) + ".png"
+                            val storageRef =
+                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
+
+                            val localfile = File.createTempFile("tempImage", "png")
+                            storageRef.getFile(localfile).addOnSuccessListener {
+
+                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                tImg.setImageBitmap(bitmap)
+                                cntImage += 1
+                            }
+
+                        }
+
+                        else{
+
+                            val imageName = "iconActive" + (cntImage + 1) + ".png"
+                            val storageRef =
+                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
+
+                            val localfile = File.createTempFile("tempImage", "png")
+                            storageRef.getFile(localfile).addOnSuccessListener {
+
+                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                tImg.setImageBitmap(bitmap)
+                                cntImage += 1
+                            }
+                        }
+
+
+
+                    }
+
+
+
+
+                    cnt += 1
+
+
+
+
+
+                }
+            }
+            .addOnFailureListener { exception->
+                Log.w("tag", "Error getting documents " , exception)
+
+            }
+
+       // firebaseAuth = FirebaseAuth.getInstance()
+        //val firebaseUser = firebaseAuth.currentUser
+        //val uId = checkUser()
+       /* database = FirebaseDatabase.getInstance().getReference("achievements")
+        //checkName(uId)
+        //Log.w("tag", "ya esta aqui ya llego => he entrado en la funcion} ")
+        database.addValueEventListener(object : ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for(userSnapshot in snapshot.children){
+                        Log.w("tag", "ya esta aqui ya llego => ${userSnapshot.toString()} ")
+                        //val logro = userSnapshot.getValue(Logro::class.java)
+                        //logrosList += logro!!
+                        binding.tvLogro1.text = "surya la sury"
+
+                    }
+                    //Log.w("tag", "ya esta aqui ya llego => he entrado en la funcion 2} ")
+                    //logrosRecyclerView.adapter = LogrosAdapter(logrosList)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })*/
+    }
+
+
+
+
+    /*private fun initRecyclerView(){
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerLogros)
         recyclerView.layoutManager = GridLayoutManager(this, 4)
         var kyara = LogrosAdapter(logrosProvider.logritos)
@@ -85,7 +193,7 @@ class LogrosActivity : AppCompatActivity() {
         }, 2000)
 
 
-    }
+    }*/
 
 
 

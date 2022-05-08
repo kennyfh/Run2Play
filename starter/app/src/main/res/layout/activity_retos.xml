@@ -25,8 +25,7 @@
                 android:background="@drawable/style_bordes_text"
                 android:fontFamily="@font/titan_one"
                 android:gravity="center"
-                android:text="RETOS
-"
+                android:text="RETOS"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#FFFFFF"
@@ -38,6 +37,10 @@
             layout="@layout/activity_marcador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+
+
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutRetos"
@@ -63,6 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRetos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

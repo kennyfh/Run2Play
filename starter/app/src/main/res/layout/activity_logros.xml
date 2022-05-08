@@ -46,6 +46,8 @@
                 android:textSize="20sp" />
 
 
+
+
         </LinearLayout>
 
         <include
@@ -53,10 +55,122 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerLogros"
+
+
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/achievementsTable">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivLogro1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvLogro1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="SuryaChiquita"
+                    app:layout_constraintStart_toStartOf="@id/ivLogro1"
+                    app:layout_constraintTop_toBottomOf="@id/ivLogro1"
+                    tools:text="tools" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivLogro2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvLogro2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toStartOf="@id/ivLogro2"
+                    app:layout_constraintTop_toBottomOf="@id/ivLogro2"
+                    android:text="SuryaChiquita"
+                    tools:text="tools" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivLogro3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvLogro3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toStartOf="@id/ivLogro3"
+                    app:layout_constraintTop_toBottomOf="@id/ivLogro3"
+                    android:text="SuryaChiquita"
+                    tools:text="tools" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivLogro4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvLogro4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="SuryaChiquita"
+                    app:layout_constraintStart_toStartOf="@id/ivLogro4"
+                    app:layout_constraintTop_toBottomOf="@id/ivLogro4"
+                    tools:text="tools" />
+
+
+
+            </LinearLayout>
+
+
+        </TableLayout>
+
+
+
 
     </LinearLayout>
 
