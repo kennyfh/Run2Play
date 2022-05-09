@@ -30,10 +30,10 @@
                 android:layout_gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+                app:srcCompat="@drawable/ic_baseline_directions_run_24"
                 android:layout_alignParentLeft="true"/>
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -57,22 +57,34 @@
                     android:id="@+id/descripcionReto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/linearLayout1"
                     android:text="descripcion"
                     android:textSize="18sp"/>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/statusReto"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:text="Activo"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_info_24" />
+
+                <TextView
+                    android:id="@+id/statusReto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:text="Activo"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </RelativeLayout>
     </LinearLayout>

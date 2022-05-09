@@ -56,15 +56,16 @@
             android:layout_height="wrap_content" />
 
 
-
-        <TableLayout
-            android:layout_width="match_parent"
+        <GridLayout
+            android:id="@+id/achievementsTable"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/achievementsTable">
+            android:columnCount="4">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/ivLogro1"
@@ -85,19 +86,17 @@
                     tools:text="tools" />
 
 
-
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/ivLogro2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:background="@color/black" />
 
                 <TextView
@@ -105,25 +104,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    app:layout_constraintStart_toStartOf="@id/ivLogro2"
-                    app:layout_constraintTop_toBottomOf="@id/ivLogro2"
-                    android:text="SuryaChiquita"
-                    tools:text="tools" />
-
+                    android:text="SuryaChiquita" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/ivLogro3"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:background="@color/black" />
 
                 <TextView
@@ -131,25 +125,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    app:layout_constraintStart_toStartOf="@id/ivLogro3"
-                    app:layout_constraintTop_toBottomOf="@id/ivLogro3"
-                    android:text="SuryaChiquita"
-                    tools:text="tools" />
-
+                    android:text="SuryaChiquita" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/ivLogro4"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:background="@color/black" />
 
                 <TextView
@@ -157,17 +146,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="SuryaChiquita"
-                    app:layout_constraintStart_toStartOf="@id/ivLogro4"
-                    app:layout_constraintTop_toBottomOf="@id/ivLogro4"
-                    tools:text="tools" />
+                    android:text="SuryaChiquita" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/ivLogro5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:background="@color/black" />
 
+            <TextView
+                android:id="@+id/tvLogro5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="SuryaChiquita" />
             </LinearLayout>
 
 
-        </TableLayout>
+
+        </GridLayout>
 
 
 

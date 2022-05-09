@@ -2,6 +2,7 @@ package com.google.codelabs.buildyourfirstmap
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.adapter.RetoAdapter
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetosBinding
+import kotlinx.android.synthetic.main.item_reto.*
 
 class RetosActivity : AppCompatActivity() {
 
@@ -29,6 +31,9 @@ class RetosActivity : AppCompatActivity() {
         val rMegaChild = rSupSupChild.getChildAt(1) as LinearLayout
         val rOmegaChild = rMegaChild.getChildAt(0) as TextView
         rOmegaChild.text = "omg super cute"*/
+
+        val buttonInfo = findViewById<ImageButton>(R.id.buttonInfo)
+        buttonInfo.setOnClickListener()
 
 
 
@@ -66,6 +71,7 @@ class RetosActivity : AppCompatActivity() {
 
     private fun initRecyclerView(){
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerRetos)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter= RetoAdapter(RetoProvider.retoList)
 
