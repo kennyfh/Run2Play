@@ -108,8 +108,10 @@ class LogrosActivity : AppCompatActivity() {
 
                                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                                 tImg.setImageBitmap(bitmap)
-                                cntImage += 1
+
                             }
+
+                            cntImage += 1
 
                         }
 
@@ -124,8 +126,10 @@ class LogrosActivity : AppCompatActivity() {
 
                                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                                 tImg.setImageBitmap(bitmap)
-                                cntImage += 1
+
                             }
+
+                            cntImage += 1
                         }
 
 

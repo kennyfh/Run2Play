@@ -1,29 +1,111 @@
 package com.google.codelabs.buildyourfirstmap
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 // import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.adapter.RetoAdapter
+import com.google.codelabs.buildyourfirstmap.databinding.ActivityLogrosBinding
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetosBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_reto.*
+import org.w3c.dom.Text
+import java.io.File
 
 class RetosActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityRetosBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityRetosBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setContentView(R.layout.activity_retos)
-        initRecyclerView()
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
+        val uId = checkUser()
+
+        fillChallenges(uId)
+        /*var tablAchiev = binding.challengesTable.getChildAt(0) as LinearLayout
+        var framAchiev = tablAchiev.getChildAt(0) as FrameLayout
+        var titleBind = framAchiev.getChildAt(1) as TextView
+        titleBind.text = "Kenny Jesús"
+
+        val new1 = hashMapOf(
+            "description" to "Descripcion random",
+            "distance" to 0,
+            "reward" to 0,
+            "time" to 0,
+            "title" to "Titulo random",
+            "unlockAchievement" to true
+
+
+        )
+
+       val new2 = hashMapOf(
+           "description" to "La tercera descripcion",
+           "distance" to 0,
+           "reward" to 0,
+           "time" to 0,
+           "title" to "Tercer titulo",
+           "unlockAchievement" to true
+
+
+       )
+
+       val new3 = hashMapOf(
+           "description" to "La cuarta descripcion",
+           "distance" to 0,
+           "reward" to 0,
+           "time" to 0,
+           "title" to "Cuarto titulo",
+           "unlockAchievement" to true
+
+
+       )
+
+       val new4 = hashMapOf(
+           "description" to "La quinta descripcion",
+           "distance" to 0,
+           "reward" to 0,
+           "time" to 0,
+           "title" to "Quinto titulo",
+           "unlockAchievement" to true
+
+
+       )
+
+
+       val db = FirebaseFirestore.getInstance()
+       db.collection("challenges").document().set(new1)
+           .addOnSuccessListener { Log.d("tag", "Se ha metido un nuevo usuario lets goo") }
+           .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu")  }
+       db.collection("challenges").document().set(new2)
+           .addOnSuccessListener { Log.d("tag", "Se ha metido un nuevo usuario lets goo") }
+           .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu")  }
+       db.collection("challenges").document().set(new3)
+           .addOnSuccessListener { Log.d("tag", "Se ha metido un nuevo usuario lets goo") }
+           .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu")  }
+       db.collection("challenges").document().set(new4)
+           .addOnSuccessListener { Log.d("tag", "Se ha metido un nuevo usuario lets goo") }
+           .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu")  }
+
+*/
+        //initRecyclerView()
         /*val recyclerView = findViewById<RecyclerView>(R.id.recyclerRetos)
         val rChild = recyclerView.getChildAt(0) as androidx.cardview.widget.CardView
         val rSupChild = rChild.getChildAt(0) as LinearLayout
@@ -33,7 +115,7 @@ class RetosActivity : AppCompatActivity() {
         rOmegaChild.text = "omg super cute"*/
 
         val buttonInfo = findViewById<ImageButton>(R.id.buttonInfo)
-        buttonInfo.setOnClickListener()
+
 
 
 
@@ -69,11 +151,57 @@ class RetosActivity : AppCompatActivity() {
 
     }
 
+    private fun fillChallenges(uId: String) {
+        val db = FirebaseFirestore.getInstance()
+        var cnt = 0
+        db.collection("challenges").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents){
+
+                    var tablAchiev = binding.challengesTable.getChildAt(cnt) as LinearLayout
+                    var framAchiev = tablAchiev.getChildAt(0) as FrameLayout
+                    var titleBind = framAchiev.getChildAt(1) as TextView
+                    titleBind.text = document.data?.get("title")?.toString()
+                    var descripBind = framAchiev.getChildAt(2) as TextView
+                    descripBind.text = document.data?.get("description")?.toString()
+
+
+                    cnt += 1
+                }
+            }
+            .addOnFailureListener { exception->
+                Log.w("tag", "Error getting documents " , exception)
+
+            }
+
+
+    }
+/*
     private fun initRecyclerView(){
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerRetos)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter= RetoAdapter(RetoProvider.retoList)
+
+    }*/
+
+    private fun checkUser(): String {
+        //check user is logged in or not
+        val firebaseUser = firebaseAuth.currentUser
+        if(firebaseUser != null){
+
+            //user not null,user is logged in, get user info
+            val uid = firebaseUser.uid
+            //set to text view
+            return uid.toString()
+
+
+        }
+        else {
+
+
+            return ""
+        }
 
     }
 
