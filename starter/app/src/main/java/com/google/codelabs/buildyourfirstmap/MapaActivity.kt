@@ -77,8 +77,6 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         val uId = checkUser()
-        checkCurrencyOne(uId)
-        checkCurrencyTwo(uId)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -290,57 +288,6 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
             return ""
         }
 
-    }
-
-    private fun checkCurrencyOne(userName: String){
-
-        //llamamos a la base de datos
-        val db = FirebaseFirestore.getInstance()
-        //sacamos la colección usuarios para obtener los elementos buscados
-
-
-
-        var currency = ""
-
-        db.collection("users").whereEqualTo("uId",userName).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents){
-                    binding.marcador.currencyOne.text = document.data["currencyOne"].toString()
-
-                    Log.w("tag", "${document.id} => ${document.data["username"].toString()} ")
-                }
-            }
-            .addOnFailureListener { exception->
-                Log.w("tag", "Error getting documents " , exception)
-
-            }
-
-
-
-    }
-
-    private fun checkCurrencyTwo(userName: String) {
-        //sacamos el id del user autentificado
-
-        //llamamos a la base de datos
-        val db = FirebaseFirestore.getInstance()
-        //sacamos la colección usuarios para obtener los elementos buscados
-
-
-        var currency = ""
-
-        db.collection("users").whereEqualTo("uId", userName).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    binding.marcador.currencyTwo.text = document.data["currencyTwo"].toString()
-
-                    Log.w("tag", "${document.id} => ${document.data["username"].toString()} ")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("tag", "Error getting documents ", exception)
-
-            }
     }
 
     override fun onMyLocationClick(l: Location) {

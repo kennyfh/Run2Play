@@ -33,8 +33,9 @@
 
         </LinearLayout>
 
-        <include
-            layout="@layout/activity_marcador"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView2"
+            android:name="com.google.codelabs.buildyourfirstmap.MarcadorFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
