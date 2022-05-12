@@ -21,6 +21,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -28,6 +29,7 @@ import com.google.codelabs.buildyourfirstmap.databinding.ActivityMapaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.maps.android.SphericalUtil
 import java.util.concurrent.TimeUnit
 
 class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationClickListener {
@@ -42,6 +44,16 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
 
+    var achievementStart = false
+    var challengeDistance = 20000.0
+    var lastLatitude = 0.0
+    var lastLongitude = 0.0
+    var challengeTitle = ""
+    var challengeReward = 0
+    var achievementTitle = ""
+    var unlockAchievement = true
+
+
 
     // FusedLocationProviderClient - Main class for receiving location updates.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -54,19 +66,82 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
     var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             for (location in locationResult.locations) {
+
+
+                if (achievementStart){
+
+                    var met = SphericalUtil.computeDistanceBetween(LatLng(lastLatitude,lastLongitude),LatLng(location.latitude,location.longitude))
+                    Log.w("distancemeter", "That is all boys $met")
+                    challengeDistance = challengeDistance - met
+                    Log.w("distancemeter", "The current challenge Distance is  $challengeDistance")
+
+                    if (challengeDistance<=0){
+                        achievementStart = false
+                        //rewardPlayer()
+                        Log.w("distancemeter", "REWAAAAAAAAAARD IS COMING   $challengeDistance")
+                    }
+
+                }
                 Log.w("tag", "onlocationresult$location")
+
+                lastLatitude = location.latitude
+                lastLongitude = location.longitude
+
             }
         }
     }
 
-    // Used only for local storage of the last known location. Usually, this would be saved to your
-    // database, but because this is a simplified sample without a full database, we only need the
-    // last location to create a Notification if the user navigates away from the app.
-    private var currentLocation: Location? = null
+    private fun rewardPlayer() {
 
-    private var serviceRunningInForeground = false
+        val uId = checkUser()
+        val db = FirebaseFirestore.getInstance()
 
-    private lateinit var notificationManager: NotificationManager
+
+        db.collection("users").whereEqualTo("uId", uId).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+
+                    var currentCurrency = document.data["currencyTwo"].toString().toInt()
+                    db.collection("users").document(uId).update("currencyTwo",currentCurrency+challengeReward)
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("tag", "Error getting documents ", exception)
+
+            }
+
+        if (unlockAchievement){
+            achievementTitle = "El logro de Kenny"
+            db.collection("achievements").whereEqualTo("title", achievementTitle).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+
+                        val usAchiev = hashMapOf(
+                            "mix" to (uId + document.id)
+
+                        )
+                        db.collection("userAchievements").document().set(usAchiev)
+                            .addOnSuccessListener { Log.d("tag", "Has conseguido un nuevo reto!")}
+                            .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("tag", "Error getting documents ", exception)
+
+                }
+
+
+
+        }
+
+
+
+
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -76,7 +151,38 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         generateFragment()
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
-        val uId = checkUser()
+
+
+
+        //testeo para retos
+
+        val achievementId = "A6MipiwGLR9RE6xEnNgX"
+        val db = FirebaseFirestore.getInstance()
+
+        challengeTitle = "Cuarto titulo"
+
+        db.collection("challenges").whereEqualTo("title", challengeTitle).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    challengeDistance = document.data["distance"].toString().toDouble()
+                    challengeReward = document.data["reward"].toString().toInt()
+                    unlockAchievement = document.data["unlockAchievement"].toString().toBoolean()
+
+
+                    Log.w("tag", "The distance required for this challenge is $challengeDistance" )
+                    achievementStart = true
+                    Log.w("tag", "Now is the moment, START RUNNING" )
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("tag", "Error getting documents ", exception)
+
+            }
+
+
+
+
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -113,6 +219,12 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
             }
             false
         })
+
+
+
+
+
+
 
     }
 
