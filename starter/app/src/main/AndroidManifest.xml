@@ -43,6 +43,9 @@
         <activity
             android:name=".RetosActivity"
             android:exported="true" />
+        <activity
+            android:name=".RetoRunningActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
