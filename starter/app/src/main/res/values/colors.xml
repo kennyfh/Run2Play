@@ -17,5 +17,6 @@
     <color name="tab_background_selected">#B1B0AF</color>
     <color name="tab_background_unselected">#8F61E1</color>
     <color name="marcador">#673AB7</color>
+    <color name="red_temporazer">#EF7970</color>
 
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.get
@@ -14,12 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.adapter.RetoAdapter
-import com.google.codelabs.buildyourfirstmap.databinding.ActivityLogrosBinding
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetosBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_reto_running.view.*
+import kotlinx.android.synthetic.main.inforetos_dialog_box.view.*
 import kotlinx.android.synthetic.main.item_reto.*
 import org.w3c.dom.Text
 import java.io.File
@@ -164,7 +166,33 @@ class RetosActivity : AppCompatActivity() {
                     titleBind.text = document.data?.get("title")?.toString()
                     var descripBind = framAchiev.getChildAt(2) as TextView
                     descripBind.text = document.data?.get("description")?.toString()
+                    var infButton = framAchiev.getChildAt(4) as ImageButton
 
+                    infButton.setOnClickListener{
+                        //asignando valores
+                        val builder = AlertDialog.Builder(this@RetosActivity)
+                        val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
+
+                        //pasando la vista al builder
+                        builder.setView(view)
+
+                        //creando dialog
+                        val dialog = builder.create()
+                        dialog.show()
+
+                        // cerrar dialog
+                        val btnExit = view.imageBtnExitInfo
+                        btnExit.setOnClickListener {
+                            dialog.dismiss()
+                        }
+
+                        view.infoTituloReto.text = document.data?.get("title")?.toString()
+                        view.infoDescripcionReto.text = document.data?.get("description")?.toString()
+                        view.infoDistanciaReto.text = document.data?.get("distance")?.toString()
+                        view.infoTiempoReto.text = document.data?.get("time")?.toString()
+                        view.infoRecompensaReto.text = document.data?.get("reward")?.toString()
+
+                    }
 
                     cnt += 1
                 }

@@ -30,7 +30,6 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"
-            android:name="MarcadorFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_marcador" />
@@ -122,14 +121,33 @@
         android:text="Tiempo restante:"
         android:textSize="30sp" />
 
+    <LinearLayout
+        android:layout_width="170dp"
+        android:layout_height="82dp"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="116dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/red_temporazer"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editTextTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="130" />
+    </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/purple_500"
         app:itemIconTint="@drawable/botom_nav_colors"
         app:itemTextColor="@drawable/botom_nav_colors"
-        android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>
