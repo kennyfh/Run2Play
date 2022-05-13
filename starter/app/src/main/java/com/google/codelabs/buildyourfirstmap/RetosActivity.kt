@@ -194,6 +194,10 @@ class RetosActivity : AppCompatActivity() {
 
                     }
 
+                    framAchiev.setOnClickListener {
+                        startActivity(Intent(applicationContext, RetoRunningActivity::class.java))
+                    }
+
                     cnt += 1
                 }
             }
