@@ -46,13 +46,11 @@
             android:name=".RetosActivity"
             android:exported="true"
             android:launchMode="singleInstance"/>
-    </application>
-        <activity
-            android:name=".RetoRunningActivity"
-            android:exported="true" />
         <activity
             android:name=".RetoRunningActivity"
             android:exported="true" />
     </application>
+
+
 
 </manifest>

@@ -156,7 +156,7 @@ class RetosActivity : AppCompatActivity() {
     private fun fillChallenges(uId: String) {
         val db = FirebaseFirestore.getInstance()
         var cnt = 0
-        db.collection("challenges").get()
+        db.collection("challenges").orderBy("challengeNumber").get()
             .addOnSuccessListener { documents ->
                 for (document in documents){
 
