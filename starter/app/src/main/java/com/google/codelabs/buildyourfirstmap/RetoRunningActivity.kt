@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -231,13 +232,16 @@ class RetoRunningActivity : AppCompatActivity(){
 
             override fun onFinish() {
                 checkOutOfTime()
-                Log.w("TIMER","Hemos Terminado Papuchos :D")
+                Log.w("TIMER","Has perdido el reto por falta de tiempo")
             }
         }
         timer.start()
 
-
-
+        // Añadimos la funcionalidad de poder terminar la actividad cuando le damos a desactivar
+        var btnCerrar = findViewById<Button>(R.id.desactivateButton)
+        btnCerrar.setOnClickListener {
+            finish()
+        }
 
         // Initialize and assign variable
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)

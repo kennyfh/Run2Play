@@ -38,7 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <Button
                 android:id="@+id/pauseButton"
@@ -50,7 +52,7 @@
                 android:text="PAUSAR" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/desactivateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#BC190D"
@@ -67,8 +69,10 @@
         style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
 
+        android:layout_below="@+id/LLRetosCabecera"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
         android:rotation="-245"
         android:scaleX="4.0"
         android:scaleY="4.0" />
@@ -77,7 +81,11 @@
         android:id="@+id/currentDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/textView9"
+        android:layout_below="@+id/LLRetosCabecera"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="142dp"
+        android:layout_marginBottom="89dp"
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="18000"
@@ -87,10 +95,10 @@
         android:id="@+id/targetDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="104dp"
+        android:layout_above="@+id/textView10"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="2dp"
+        android:layout_toEndOf="@+id/textView9"
         android:gravity="center_horizontal|center_vertical"
         android:text="18000"
         android:textSize="30sp" />
@@ -129,14 +137,16 @@
         android:layout_marginStart="116dp"
         android:layout_marginBottom="10dp"
         android:background="@color/red_temporazer"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/timeLeft"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="130"
             android:textAlignment="center"
-            android:text="130" />
+            android:textSize="36dp" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
