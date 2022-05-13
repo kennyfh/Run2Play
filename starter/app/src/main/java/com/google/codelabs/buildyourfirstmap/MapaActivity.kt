@@ -42,14 +42,9 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
 
 
 
-    var achievementStart = false
-    var challengeDistance = 20000.0 as Double
+    var rewardStart = false
     var lastLatitude = 0.0
     var lastLongitude = 0.0
-    var challengeTitle = ""
-    var challengeReward = 0
-    var achievementTitle = ""
-    var unlockAchievement = true
     var mapsDistanceReward = 1000.0
 
 
@@ -66,29 +61,22 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         override fun onLocationResult(locationResult: LocationResult) {
             for (location in locationResult.locations) {
 
-                Log.w("distancemeter", "Achievement start value  $achievementStart")
-                Log.w("distancemeter", "Distancia restante $challengeDistance")
-                if (achievementStart){
+                Log.w("distancemeter", "Achievement start value  $rewardStart")
+
+                if (rewardStart){
 
                     var met = SphericalUtil.computeDistanceBetween(LatLng(lastLatitude,lastLongitude),LatLng(location.latitude,location.longitude))
                     //filtramos casos extremos donde el gps se vaya a lugares lejanos
                     if(met<1000){
 
-                        Log.w("distancemeter", "Achievement start value  $challengeDistance")
-                        Log.w("distancemeter", "Distancia del metro calculada $met")
-                        Log.w("distancemeter", "Restamos $challengeDistance a $met y obtenermos ${challengeDistance-met}")
-                        challengeDistance -= met
-                        Log.w("distancemeter", "The current challenge Distance is  $challengeDistance")
                         mapsDistanceReward -= met
                         if (mapsDistanceReward <=0){
+                            //Toast.makeText(this,"Has ganado unas cuantas monedas",Toast.LENGTH_SHORT)
+                            Log.w("reward", "Has ganado monedas ")
                             rewardPlayerCurrencyOne()
                             mapsDistanceReward = 1000.0
                         }
-                        if (challengeDistance<=0){
-                            achievementStart = false
-                            rewardPlayerCurrencyTwo()
-                            Log.w("distancemeter", "REWAAAAAAAAAARD IS COMING   $challengeDistance")
-                        }
+
 
                     }
 
@@ -104,13 +92,13 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        challengeDistance =  savedInstanceState.getDouble("challengeDistance")
+
         Log.w("saved", "Recuperando datos")
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Guardamos Challenge distance
-        outState.putDouble("challengeDistance", challengeDistance)
+
         Log.w("kenny", "Guardamos datos")
 
 
@@ -148,57 +136,7 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
 
     }
 
-    private fun rewardPlayerCurrencyTwo() {
 
-        val uId = checkUser()
-        val db = FirebaseFirestore.getInstance()
-
-
-        db.collection("users").whereEqualTo("uId", uId).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-
-                    var currentCurrency = document.data["currencyTwo"].toString().toInt()
-                    db.collection("users").document(uId).update("currencyTwo",currentCurrency+challengeReward)
-                    binding.fragmentContainerView.getFragment<MarcadorFragment>().checkCurrencyTwo(uId)
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("tag", "Error getting documents ", exception)
-
-            }
-
-        if (unlockAchievement){
-            achievementTitle = "El logro de Kenny"
-            db.collection("achievements").whereEqualTo("title", achievementTitle).get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-
-                        val usAchiev = hashMapOf(
-                            "mix" to (uId + document.id)
-
-                        )
-                        db.collection("userAchievements").document().set(usAchiev)
-                            .addOnSuccessListener { Log.d("tag", "Has conseguido un nuevo reto!")}
-                            .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
-
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("tag", "Error getting documents ", exception)
-
-                }
-
-
-
-        }
-
-
-
-
-
-    }
 
     override fun onResume() {
         super.onResume()
@@ -216,39 +154,9 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         // Nos traemos los datos si nos hemos salido de la actividad
         Log.w("kennylog", "The distance required for this challenge is ${savedInstanceState.toString()}" )
         if (savedInstanceState != null) {
-           challengeDistance =  savedInstanceState.getDouble("challengeDistance")
+
            Log.w("saved","HEMOS RECUPERADO LOS DATOS :D")
         }
-
-
-        //testeo para retos
-
-        val achievementId = "A6MipiwGLR9RE6xEnNgX"
-        val db = FirebaseFirestore.getInstance()
-
-        challengeTitle = "Cuarto titulo"
-
-        db.collection("challenges").whereEqualTo("title", challengeTitle).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    challengeDistance = document.data["distance"].toString().toDouble()
-                    challengeReward = document.data["reward"].toString().toInt()
-                    unlockAchievement = document.data["unlockAchievement"].toString().toBoolean()
-
-
-                    Log.w("kennylog", "The distance required for this challenge is $challengeDistance" )
-                    achievementStart = true
-                    Log.w("tag", "Now is the moment, START RUNNING" )
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("tag", "Error getting documents ", exception)
-
-            }
-
-
-
-
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -258,6 +166,7 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         locationRequest.fastestInterval = 2000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
+        rewardStart = true
 
         // Initialize and assign variable
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)

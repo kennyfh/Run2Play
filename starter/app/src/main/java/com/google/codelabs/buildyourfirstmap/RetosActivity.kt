@@ -195,7 +195,17 @@ class RetosActivity : AppCompatActivity() {
                     }
 
                     framAchiev.setOnClickListener {
-                        startActivity(Intent(applicationContext, RetoRunningActivity::class.java))
+                        val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
+                        val intent = Intent(applicationContext,RetoRunningActivity::class.java)
+                        intent.putExtra("title",document.data?.get("title")?.toString())
+                        intent.putExtra("description",document.data?.get("description")?.toString())
+                        intent.putExtra("distance",document.data?.get("distance")?.toString())
+                        intent.putExtra("time",document.data?.get("time")?.toString())
+                        intent.putExtra("reward",document.data?.get("reward")?.toString())
+                        intent.putExtra("unlockAchievement",document.data?.get("unlockAchievement")?.toString())
+
+
+                        startActivity(intent)
                     }
 
                     cnt += 1

@@ -41,11 +41,10 @@
         <activity
             android:name=".LogrosActivity"
             android:exported="true"
-            android:launchMode="singleInstance"/>
+            />
         <activity
             android:name=".RetosActivity"
-            android:exported="true"
-            android:launchMode="singleInstance"/>
+            android:exported="true" />
         <activity
             android:name=".RetoRunningActivity"
             android:exported="true" />

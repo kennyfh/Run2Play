@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +21,10 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetoRunningBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.maps.android.SphericalUtil
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class RetoRunningActivity : AppCompatActivity(){
 
@@ -35,16 +39,60 @@ class RetoRunningActivity : AppCompatActivity(){
 
 
     var achievementStart = false
-    var challengeDistance = 20000.0 as Double
+    var challengeDistance = 20000.0
+    var currentDistance = 0.0
     var lastLatitude = 0.0
     var lastLongitude = 0.0
-    var challengeTitle = ""
-    var challengeReward = 0
-    var achievementTitle = ""
     var unlockAchievement = true
-    var mapsDistanceReward = 1000.0
+    var activeClock = true
+    var currentTimer = 0L
+    lateinit var timer : CountDownTimer
 
 
+    fun stopClock(){
+        if(activeClock){
+            timer.cancel()
+            activeClock = false
+
+        }
+        else{
+            var duracion = currentTimer
+            timer = object: CountDownTimer(duracion, 1000) {
+                override fun onTick(l: Long) {
+
+
+                    // Convertir milisegundos en minutos y segundos
+                    var SDuracion = String.format(Locale.ENGLISH, "%02d : %02d"
+                        ,TimeUnit.MILLISECONDS.toMinutes(l)
+                        ,TimeUnit.MILLISECONDS.toSeconds(l) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)))
+
+                    binding.timeLeft.text = SDuracion
+
+                    Log.w("TIMER", "Tiempo Restante: $SDuracion")
+                    currentTimer = l
+
+
+
+
+
+
+                }
+
+                override fun onFinish() {
+                    checkOutOfTime()
+                    Log.w("TIMER","Hemos Terminado Papuchos :D")
+                }
+            }
+            timer.start()
+            activeClock = true
+        }
+
+    }
+
+    private fun checkOutOfTime() {
+        //startActivity(Intent(this, RetosActivity::class.java))
+    }
 
     // FusedLocationProviderClient - Main class for receiving location updates.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -72,16 +120,15 @@ class RetoRunningActivity : AppCompatActivity(){
                         Log.w("distancemeter", "Achievement start value  $challengeDistance")
                         Log.w("distancemeter", "Distancia del metro calculada $met")
                         Log.w("distancemeter", "Restamos $challengeDistance a $met y obtenermos ${challengeDistance-met}")
-                        challengeDistance -= met
-                        Log.w("distancemeter", "The current challenge Distance is  $challengeDistance")
-                        mapsDistanceReward -= met
-                        if (mapsDistanceReward <=0){
-                            //rewardPlayerCurrencyOne()
-                            mapsDistanceReward = 1000.0
+                        if(activeClock) {
+                            currentDistance += met
                         }
-                        if (challengeDistance<=0){
+                        binding.currentDistance.text = currentDistance.toInt().toString()
+                        Log.w("distancemeter", "The current challenge Distance is  $challengeDistance")
+
+                        if (challengeDistance<=currentDistance){
                             achievementStart = false
-                            // rewardPlayerCurrencyTwo()
+                            rewardPlayerCurrencyTwo()
                             Log.w("distancemeter", "REWAAAAAAAAAARD IS COMING   $challengeDistance")
                         }
 
@@ -119,7 +166,21 @@ class RetoRunningActivity : AppCompatActivity(){
 //        setContentView(R.layout.activity_reto_running)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
+
+        val intent = intent
+
+        binding.pauseButton.setOnClickListener{
+            stopClock()
+        }
+
+        binding.currentDistance.text = "0"
+        binding.targetDistance.text = intent.getStringExtra("distance").toString()
+        challengeDistance = intent.getStringExtra("distance").toString().toDouble()
+
+        unlockAchievement = intent.getStringExtra("unlockAchievement").toString().toBoolean()
         val firebaseUser = firebaseAuth.currentUser
+
+        achievementStart = true
 
         // Nos traemos los datos si nos hemos salido de la actividad
         Log.w("kennylog", "The distance required for this challenge is ${savedInstanceState.toString()}" )
@@ -135,6 +196,40 @@ class RetoRunningActivity : AppCompatActivity(){
         locationRequest.interval = 4000
         locationRequest.fastestInterval = 2000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        // Inicializamos el contador del timer
+        var duracion = TimeUnit.MINUTES.toMillis(intent.getStringExtra("time").toString().toLong())
+        // Creación del CountDownTimer
+        timer = object: CountDownTimer(duracion, 1000) {
+            override fun onTick(l: Long) {
+
+
+                    // Convertir milisegundos en minutos y segundos
+                    var SDuracion = String.format(Locale.ENGLISH, "%02d : %02d"
+                        ,TimeUnit.MILLISECONDS.toMinutes(l)
+                        ,TimeUnit.MILLISECONDS.toSeconds(l) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)))
+
+                    binding.timeLeft.text = SDuracion
+                    currentTimer = l
+                    Log.w("TIMER", "Current timer: $currentTimer")
+                    Log.w("TIMER", "Tiempo Restante: $SDuracion")
+
+
+
+
+
+            }
+
+            override fun onFinish() {
+                checkOutOfTime()
+                Log.w("TIMER","Hemos Terminado Papuchos :D")
+            }
+        }
+        timer.start()
+
+
+
 
         // Initialize and assign variable
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -273,6 +368,82 @@ class RetoRunningActivity : AppCompatActivity(){
     // Variable quen nos dice el código de localización
     companion object {
         const val LOCATION_REQUEST_CODE = 96
+
+    }
+
+    private fun rewardPlayerCurrencyTwo() {
+
+        val uId = checkUser()
+        val db = FirebaseFirestore.getInstance()
+
+
+
+
+        if (unlockAchievement){
+            var achievementTitle = "El logro de dani"
+            db.collection("achievements").whereEqualTo("title", achievementTitle).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+
+                        val usAchiev = hashMapOf(
+                            "mix" to (uId + document.id)
+
+                        )
+                        db.collection("userAchievements").document().set(usAchiev)
+                            .addOnSuccessListener { Log.d("tag", "Has conseguido un nuevo reto!")}
+                            .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
+
+                        Log.w("reward", "Has ganado un logro ")
+                    }
+
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("tag", "Error getting documents ", exception)
+
+                }
+
+
+        }
+
+        db.collection("users").whereEqualTo("uId", uId).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.w("reward", "Has ganado recompensas segundarias ")
+                    //binding.fragmentContainerView3.getFragment<MarcadorFragment>().checkCurrencyTwo(checkUser())
+                    var currentCurrency = document.data["currencyTwo"].toString().toInt()
+                    db.collection("users").document(uId).update("currencyTwo",currentCurrency+intent.getStringExtra("reward").toString().toInt())
+                    startActivity(Intent(this, RetosActivity::class.java))
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("tag", "Error getting documents ", exception)
+
+            }
+
+
+
+
+
+
+
+    }
+
+    private fun checkUser(): String {
+        //check user is logged in or not
+        val firebaseUser = firebaseAuth.currentUser
+        if(firebaseUser != null){
+
+            //user not null,user is logged in, get user info
+            val uid = firebaseUser.uid
+            //set to text view
+            return uid.toString()
+        }
+        else {
+            return ""
+        }
 
     }
 
