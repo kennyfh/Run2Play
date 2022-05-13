@@ -85,20 +85,23 @@ class LogrosActivity : AppCompatActivity() {
         var userName = "IGuowIU1wuPt6SjUiKDfXpFXk6K2"
         val logName = "X48lZc4Uh3gLT7FWnhFl"
         val db = FirebaseFirestore.getInstance()
-        db.collection("achievements").get()
+        db.collection("achievements").orderBy("achievementNumber").get()
             .addOnSuccessListener { documents ->
                 for (document in documents){
-                    Log.w("tag", "${document.id} => omg")
+                    Log.w("achiev", "${document["achievementNumber"]} => omg")
 
                     val lLay = binding.achievementsTable.getChildAt(cnt) as LinearLayout
                     val tViwy = lLay.getChildAt(1) as TextView
-                    val tImg = lLay.getChildAt(0) as ImageView
+                    //val tImg = lLay.getChildAt(0) as ImageView
                     tViwy.text = document.data?.get("title")?.toString()
 
                     db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
                         users ->
 
                         if (users.isEmpty){
+                            val iLay = binding.achievementsTable.getChildAt(cntImage) as LinearLayout
+                            val tImg = iLay.getChildAt(0) as ImageView
+                            Log.w("achiev", "gonna set inactive ${cntImage+1} => omg")
                             val imageName = "iconInactive" + (cntImage + 1) + ".png"
                             val storageRef =
                                 FirebaseStorage.getInstance().reference.child("Images/$imageName")
@@ -116,7 +119,9 @@ class LogrosActivity : AppCompatActivity() {
                         }
 
                         else{
-
+                            Log.w("achiev", "gonna set active ${cntImage+1} => omg")
+                            val iLay = binding.achievementsTable.getChildAt(cntImage) as LinearLayout
+                            val tImg = iLay.getChildAt(0) as ImageView
                             val imageName = "iconActive" + (cntImage + 1) + ".png"
                             val storageRef =
                                 FirebaseStorage.getInstance().reference.child("Images/$imageName")

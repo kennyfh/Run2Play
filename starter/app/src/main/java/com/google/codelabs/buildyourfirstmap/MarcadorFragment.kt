@@ -21,6 +21,7 @@ class MarcadorFragment : Fragment() {
     private lateinit var _binding: FragmentMarcadorBinding
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,7 +71,7 @@ class MarcadorFragment : Fragment() {
 
     }
 
-    private fun checkCurrencyOne(userName: String) {
+     fun checkCurrencyOne(userName: String) {
 
         //llamamos a la base de datos
         val db = FirebaseFirestore.getInstance()
@@ -95,7 +96,7 @@ class MarcadorFragment : Fragment() {
 
     }
 
-    private fun checkCurrencyTwo(userName: String) {
+    fun checkCurrencyTwo(userName: String) {
         //sacamos el id del user autentificado
 
         //llamamos a la base de datos
