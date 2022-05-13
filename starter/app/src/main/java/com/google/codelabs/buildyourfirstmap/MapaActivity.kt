@@ -289,10 +289,6 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
 
 
 
-
-
-
-
     }
 
     override fun onStart() {
@@ -421,7 +417,7 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         if (isLocationPermissionGranted()) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation()
-            Log.w("TAG", "AAAAA")
+            Log.w("TAG", "Permitimos que la aplicación vaya correctamente")
 //            getLastLocation()
             checkSettingsAndStartLocationUpdates()
         } else {
