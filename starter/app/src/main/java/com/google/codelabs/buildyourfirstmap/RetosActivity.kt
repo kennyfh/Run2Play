@@ -1,30 +1,21 @@
 package com.google.codelabs.buildyourfirstmap
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.core.view.get
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 // import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import com.google.codelabs.buildyourfirstmap.adapter.RetoAdapter
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetosBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_reto_running.view.*
 import kotlinx.android.synthetic.main.inforetos_dialog_box.view.*
-import kotlinx.android.synthetic.main.item_reto.*
-import org.w3c.dom.Text
-import java.io.File
+
 
 class RetosActivity : AppCompatActivity() {
 
@@ -116,7 +107,7 @@ class RetosActivity : AppCompatActivity() {
         val rOmegaChild = rMegaChild.getChildAt(0) as TextView
         rOmegaChild.text = "omg super cute"*/
 
-        val buttonInfo = findViewById<ImageButton>(R.id.buttonInfo)
+        //val buttonInfo = findViewById<ImageButton>(R.id.buttonInfo)
 
 
 

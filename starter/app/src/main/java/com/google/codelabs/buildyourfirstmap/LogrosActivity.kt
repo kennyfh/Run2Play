@@ -22,6 +22,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.protobuf.Empty
 import kotlinx.android.synthetic.main.achievement_pop_up.view.*
 import kotlinx.android.synthetic.main.inforetos_dialog_box.view.*
 import org.w3c.dom.Comment
@@ -83,6 +84,141 @@ class LogrosActivity : AppCompatActivity() {
 
 
     private fun getUserData(){
+        var cnt = 1
+        var userName = checkUser()
+        val db = FirebaseFirestore.getInstance()
+        db.collection("achievements").orderBy("achievementNumber").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents){
+
+                    Log.w("achiev", "${document["achievementNumber"]} => omg")
+
+                    val lLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
+                    val tViwy = lLay.getChildAt(1) as TextView
+                    //val tImg = lLay.getChildAt(0) as ImageView
+                    tViwy.text = document.data?.get("title")?.toString()
+
+                    db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
+                            users ->
+                        if(users.isEmpty){
+
+                            Log.w("achiev", "El logro $cnt con valor ir ${document.data["achievementNumber"]} no forma parte de los logros obtenidos => omg")
+                            val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
+                            val tImg = iLay.getChildAt(0) as ImageView
+                            Log.w("achiev", "gonna set inactive ${document.data["achievementNumber"]} => omg")
+                            val imageName = document.data["iconInactive"]
+                            val storageRef =
+                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
+
+                            val localfile = File.createTempFile("tempImage", "png")
+                            storageRef.getFile(localfile).addOnSuccessListener {
+
+                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                tImg.setImageBitmap(bitmap)
+
+                            }
+
+
+
+
+
+                            //PULSAR LOGRO PARA POP-UP
+                            lLay.setOnClickListener {
+                                //asignando valores
+                                val builder = AlertDialog.Builder(this@LogrosActivity)
+                                val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
+
+                                //pasando la vista al builder
+                                builder.setView(view)
+
+                                //creando dialog
+                                val dialog = builder.create()
+                                dialog.show()
+
+                                // cerrar dialog
+                                val btnExit = view.btn_pop_up_exit
+                                btnExit.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+
+
+
+                                storageRef.getFile(localfile).addOnSuccessListener {
+
+                                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                    view.image_pop_Logro.setImageBitmap(bitmap)
+                                }
+
+                                view.logro_pop_Title.text = document.data?.get("title")?.toString()
+                                view.logro_pop_description.text = document.data?.get("description")?.toString()
+                                view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
+
+                            }
+
+                        }
+                        else{
+
+                            val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
+                            val tImg = iLay.getChildAt(0) as ImageView
+                            Log.w("achiev", "gonna set active ${document.data["achievementNumber"]} => omg")
+                            val imageName = document.data["iconActive"]
+                            val storageRef =
+                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
+
+                            val localfile = File.createTempFile("tempImage", "png")
+                            storageRef.getFile(localfile).addOnSuccessListener {
+
+                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                tImg.setImageBitmap(bitmap)
+
+                            }
+
+                            //PULSAR LOGRO PARA POP-UP
+                            lLay.setOnClickListener {
+                                //asignando valores
+                                val builder = AlertDialog.Builder(this@LogrosActivity)
+                                val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
+
+                                //pasando la vista al builder
+                                builder.setView(view)
+
+                                //creando dialog
+                                val dialog = builder.create()
+                                dialog.show()
+
+                                // cerrar dialog
+                                val btnExit = view.btn_pop_up_exit
+                                btnExit.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+
+
+
+                                storageRef.getFile(localfile).addOnSuccessListener {
+
+                                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                                    view.image_pop_Logro.setImageBitmap(bitmap)
+                                }
+
+                                view.logro_pop_Title.text = document.data?.get("title")?.toString()
+                                view.logro_pop_description.text = document.data?.get("description")?.toString()
+                                view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
+
+                            }
+                        }
+
+                    }
+                        .addOnFailureListener { exception->
+                            Log.w("tag", "Error getting documents " , exception) }
+                }
+
+            }.addOnFailureListener { exception->
+                Log.w("tag", "Error getting documents " , exception)
+
+            }
+    }
+
+        /*
         var cnt = 0
         var cntImage = 0
         var userName = "IGuowIU1wuPt6SjUiKDfXpFXk6K2"
@@ -183,51 +319,14 @@ class LogrosActivity : AppCompatActivity() {
             .addOnFailureListener { exception->
                 Log.w("tag", "Error getting documents " , exception)
 
-            }
-
-       // firebaseAuth = FirebaseAuth.getInstance()
-        //val firebaseUser = firebaseAuth.currentUser
-        //val uId = checkUser()
-       /* database = FirebaseDatabase.getInstance().getReference("achievements")
-        //checkName(uId)
-        //Log.w("tag", "ya esta aqui ya llego => he entrado en la funcion} ")
-        database.addValueEventListener(object : ValueEventListener{
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    for(userSnapshot in snapshot.children){
-                        Log.w("tag", "ya esta aqui ya llego => ${userSnapshot.toString()} ")
-                        //val logro = userSnapshot.getValue(Logro::class.java)
-                        //logrosList += logro!!
-                        binding.tvLogro1.text = "surya la sury"
-
-                    }
-                    //Log.w("tag", "ya esta aqui ya llego => he entrado en la funcion 2} ")
-                    //logrosRecyclerView.adapter = LogrosAdapter(logrosList)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })*/
-    }
+            }*/
 
 
 
 
-    /*private fun initRecyclerView(){
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerLogros)
-        recyclerView.layoutManager = GridLayoutManager(this, 4)
-        var kyara = LogrosAdapter(logrosProvider.logritos)
-        val handler = Handler()
-        handler.postDelayed({
-            // your code to run after 2 second
-            recyclerView.adapter = kyara
-        }, 2000)
 
 
-    }*/
+
 
 
 

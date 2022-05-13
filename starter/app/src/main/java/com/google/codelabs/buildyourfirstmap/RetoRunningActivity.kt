@@ -36,6 +36,12 @@ class RetoRunningActivity : AppCompatActivity(){
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
 
+    val titles = mapOf(
+        "Primer titulo" to "El logro de Kenny"
+        , "Segundo titulo" to "El logro de dani"
+        , "Cuarto titulo" to "Un buen logro"
+        , "Quinto titulo" to "Un mal logro"
+    )
 
 
     var achievementStart = false
@@ -46,6 +52,7 @@ class RetoRunningActivity : AppCompatActivity(){
     var unlockAchievement = true
     var activeClock = true
     var currentTimer = 0L
+    var challengeTitle = ""
     lateinit var timer : CountDownTimer
 
 
@@ -176,6 +183,7 @@ class RetoRunningActivity : AppCompatActivity(){
         binding.currentDistance.text = "0"
         binding.targetDistance.text = intent.getStringExtra("distance").toString()
         challengeDistance = intent.getStringExtra("distance").toString().toDouble()
+        challengeTitle = intent.getStringExtra("title").toString()
 
         unlockAchievement = intent.getStringExtra("unlockAchievement").toString().toBoolean()
         val firebaseUser = firebaseAuth.currentUser
@@ -380,7 +388,7 @@ class RetoRunningActivity : AppCompatActivity(){
 
 
         if (unlockAchievement){
-            var achievementTitle = "El logro de dani"
+            var achievementTitle = titles[challengeTitle]
             db.collection("achievements").whereEqualTo("title", achievementTitle).get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {

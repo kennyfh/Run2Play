@@ -26,7 +26,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/style_relleno_text"
                 android:drawablePadding="10dp"
-                android:gravity="center"
                 android:text="Cargando ..."
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -152,25 +151,7 @@
                     android:textAlignment="center" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/ivLogro5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center" />
-            </LinearLayout>
 
 
         </GridLayout>
