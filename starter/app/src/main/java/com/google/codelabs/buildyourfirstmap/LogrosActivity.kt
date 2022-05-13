@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,8 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.achievement_pop_up.view.*
+import kotlinx.android.synthetic.main.inforetos_dialog_box.view.*
 import org.w3c.dom.Comment
 import java.io.File
 
@@ -95,6 +98,42 @@ class LogrosActivity : AppCompatActivity() {
                     //val tImg = lLay.getChildAt(0) as ImageView
                     tViwy.text = document.data?.get("title")?.toString()
 
+
+                    //PULSAR LOGRO PARA POP-UP
+                    lLay.setOnClickListener {
+                        //asignando valores
+                        val builder = AlertDialog.Builder(this@LogrosActivity)
+                        val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
+
+                        //pasando la vista al builder
+                        builder.setView(view)
+
+                        //creando dialog
+                        val dialog = builder.create()
+                        dialog.show()
+
+                        // cerrar dialog
+                        val btnExit = view.btn_pop_up_exit
+                        btnExit.setOnClickListener {
+                            dialog.dismiss()
+                        }
+
+                        val imageName = "iconInactive" + (1) + ".png"
+                        val storageRef =
+                            FirebaseStorage.getInstance().reference.child("Images/$imageName")
+                        val localfile = File.createTempFile("tempImage", "png")
+                        storageRef.getFile(localfile).addOnSuccessListener {
+
+                            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                            view.image_pop_Logro.setImageBitmap(bitmap)
+                        }
+
+                        view.logro_pop_Title.text = document.data?.get("title")?.toString()
+                        view.logro_pop_description.text = document.data?.get("description")?.toString()
+                        view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
+
+                    }
+
                     db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
                         users ->
 
@@ -136,20 +175,9 @@ class LogrosActivity : AppCompatActivity() {
 
                             cntImage += 1
                         }
-
-
-
                     }
 
-
-
-
                     cnt += 1
-
-
-
-
-
                 }
             }
             .addOnFailureListener { exception->
