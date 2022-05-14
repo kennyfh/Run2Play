@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".MarcadorActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".MarcadorActivity"-->
+<!--            android:exported="false" />-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -51,6 +51,15 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".InventoryActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".ShopActivity"
+            android:exported="true"/>
+
     </application>
 
 

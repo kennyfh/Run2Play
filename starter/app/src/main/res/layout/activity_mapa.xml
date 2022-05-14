@@ -12,18 +12,43 @@
         android:background="#673AB7"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/searchBar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            android:gravity="center">
+            android:layout_height="80dp"
+            android:background="#673AB7"
+            android:orientation="horizontal">
 
 
-        </SearchView>
+            <Button
+                android:id="@+id/shopBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tienda" />
+
+            <Button
+                android:id="@+id/InventoryBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Inventario" />
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/style_bordes_text"
+                android:fontFamily="@font/titan_one"
+                android:gravity="center"
+                android:text="Mapa"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"

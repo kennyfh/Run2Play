@@ -9,6 +9,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -159,6 +160,15 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         if (savedInstanceState != null) {
 
            Log.w("saved","HEMOS RECUPERADO LOS DATOS :D")
+        }
+
+        val BtnInventario = findViewById<Button>(R.id.InventoryBtn)
+        BtnInventario.setOnClickListener{
+            startActivity(Intent(applicationContext, InventoryActivity::class.java))
+        }
+        val BtnTienda = findViewById<Button>(R.id.shopBtn)
+        BtnTienda.setOnClickListener {
+            startActivity(Intent(applicationContext, ShopActivity::class.java))
         }
 
 
