@@ -98,11 +98,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -161,11 +163,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -224,11 +228,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -287,11 +293,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -350,11 +358,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -413,11 +423,13 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:minHeight="48dp"
+                        android:layout_marginRight="10dp"
+                        android:minWidth="40dp"
+                        android:minHeight="40dp"
+                        android:background="@drawable/style_relleno_text"
                         android:src="@drawable/ic_baseline_info_24"
                         tools:ignore="SpeakableTextPresentCheck" />
 

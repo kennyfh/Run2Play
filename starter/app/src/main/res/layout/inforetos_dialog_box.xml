@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/style_bordes_text_pop_up"
     android:paddingBottom="20dp">
 
     <ImageView
@@ -22,8 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
-        android:minHeight="48dp"
+        android:minHeight="30dp"
+        android:minWidth="30dp"
         android:src="@drawable/ic_baseline_cancel_24"
+        android:background="@drawable/style_relleno_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/image_pop_Retos"
         tools:ignore="SpeakableTextPresentCheck" />

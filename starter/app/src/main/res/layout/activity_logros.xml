@@ -43,7 +43,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="30sp" />
 
 
         </LinearLayout>
