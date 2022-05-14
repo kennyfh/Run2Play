@@ -109,13 +109,16 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
         val uId = checkUser()
         val db = FirebaseFirestore.getInstance()
 
-
+        Log.w("DINERO","Hemos ganado 50 pesitos extra")
         db.collection("users").whereEqualTo("uId", uId).get()
             .addOnSuccessListener { documents ->
+                Log.w("DINERO","Uid${uId}")
+                Log.w("DINERO","Hemos ganado 50 pesitos extra${documents.toString()}")
                 for (document in documents) {
-
-                    var currentCurrency = document.data["currencyOne"].toString().toInt()
-                    db.collection("users").document(uId).update("currencyOne",currentCurrency+50)
+                    Log.w("DINERO","document ${document.id}")
+                    var currentCurrency = document.data["currencyOne"].toString().toInt() + 50
+                    Log.w("DINERO","current curre ${currentCurrency}")
+                    db.collection("users").document(document.id).update("currencyOne",currentCurrency)
                     binding.fragmentContainerView.getFragment<MarcadorFragment>().checkCurrencyOne(uId)
                 }
             }

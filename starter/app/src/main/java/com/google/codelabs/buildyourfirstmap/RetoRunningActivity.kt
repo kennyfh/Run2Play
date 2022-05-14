@@ -424,7 +424,7 @@ class RetoRunningActivity : AppCompatActivity(){
                     Log.w("reward", "Has ganado recompensas segundarias ")
                     //binding.fragmentContainerView3.getFragment<MarcadorFragment>().checkCurrencyTwo(checkUser())
                     var currentCurrency = document.data["currencyTwo"].toString().toInt()
-                    db.collection("users").document(uId).update("currencyTwo",currentCurrency+intent.getStringExtra("reward").toString().toInt())
+                    db.collection("users").document(document.id).update("currencyTwo",currentCurrency+intent.getStringExtra("reward").toString().toInt())
                     startActivity(Intent(this, RetosActivity::class.java))
 
 
@@ -446,6 +446,7 @@ class RetoRunningActivity : AppCompatActivity(){
     private fun checkUser(): String {
         //check user is logged in or not
         val firebaseUser = firebaseAuth.currentUser
+        Log.w("tag", "Error getting documents  ${firebaseUser?.uid}")
         if(firebaseUser != null){
 
             //user not null,user is logged in, get user info
