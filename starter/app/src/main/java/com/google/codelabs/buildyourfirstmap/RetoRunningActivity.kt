@@ -396,16 +396,29 @@ class RetoRunningActivity : AppCompatActivity(){
             db.collection("achievements").whereEqualTo("title", achievementTitle).get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
+                        db.collection("userAchievements").whereEqualTo("mix",uId+document.id).get()
+                            .addOnSuccessListener { achievements ->
+                                if (achievements.isEmpty){
+                                    val usAchiev = hashMapOf(
+                                        "mix" to (uId + document.id)
 
-                        val usAchiev = hashMapOf(
-                            "mix" to (uId + document.id)
+                                    )
+                                    db.collection("userAchievements").document().set(usAchiev)
+                                        .addOnSuccessListener { Log.d("tag", "Has conseguido un nuevo reto!")}
+                                        .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
 
-                        )
-                        db.collection("userAchievements").document().set(usAchiev)
-                            .addOnSuccessListener { Log.d("tag", "Has conseguido un nuevo reto!")}
-                            .addOnFailureListener { e -> Log.w("tag", "Error, no se mete en la base de datos uwu") }
+                                    Log.w("reward", "Has ganado un logro ")
 
-                        Log.w("reward", "Has ganado un logro ")
+                                }
+
+                                else{
+                                    Log.w("reward", "Ya tienes este logro")
+
+                                }
+                            }.addOnFailureListener {exception ->
+                                Log.w("tag", "Error getting documents ", exception)
+                            }
+
                     }
 
 
