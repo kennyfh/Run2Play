@@ -1,21 +1,23 @@
 package com.google.codelabs.buildyourfirstmap
 
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.*
+import android.widget.LinearLayout.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityInventoryBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
-import android.widget.LinearLayout.LayoutParams
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
+
 
 class InventoryActivity : AppCompatActivity() {
 
@@ -30,12 +32,7 @@ class InventoryActivity : AppCompatActivity() {
         binding = ActivityInventoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*generateCard()
-        generateCard()
-        generateCard()
-        generateCard()
-        generateCard()
-        generateCard()*/
+
 
         firebaseAuth = FirebaseAuth.getInstance()
         val uId = checkUser()
@@ -83,7 +80,13 @@ class InventoryActivity : AppCompatActivity() {
 
         // generamos image view
         val imageView = ImageView(this)
-        val params = LayoutParams(100,100)
+        val r: Resources = resources
+        var px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 100f, r.getDisplayMetrics()
+            )
+        )
+        val params = LayoutParams(px,px)
         imageView.layoutParams = params
 
         val storageRef =
@@ -106,7 +109,12 @@ class InventoryActivity : AppCompatActivity() {
         quote.layoutParams = layoutParams2
         quote.text = title + " x " + amount;
 //        quote.textSize = 24f
-        quote.maxWidth = 90
+        px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 90f, r.getDisplayMetrics()
+            )
+        )
+        quote.maxWidth = px
         quote.textAlignment = View.TEXT_ALIGNMENT_CENTER
         quote.setTextColor(Color.BLACK)
         quote.setTypeface(Typeface.SANS_SERIF,Typeface.NORMAL)

@@ -117,6 +117,7 @@ class RetosActivity : AppCompatActivity() {
                         intent.putExtra("time",document.data?.get("time")?.toString())
                         intent.putExtra("reward",document.data?.get("reward")?.toString())
                         intent.putExtra("unlockAchievement",document.data?.get("unlockAchievement")?.toString())
+                        intent.putExtra("challengeNumber",document.data?.get("challengeNumber")?.toString())
 
 
                         startActivity(intent)

@@ -2,10 +2,16 @@ package com.google.codelabs.buildyourfirstmap
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -87,22 +93,24 @@ class LogrosActivity : AppCompatActivity() {
         var cnt = 1
         var userName = checkUser()
         val db = FirebaseFirestore.getInstance()
-        db.collection("achievements").orderBy("achievementNumber").get()
+        db.collection("achievements").get()
             .addOnSuccessListener { documents ->
                 for (document in documents){
 
                     Log.w("achiev", "${document["achievementNumber"]} => omg")
 
-                    val lLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
+                    /*val lLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
                     val tViwy = lLay.getChildAt(1) as TextView
                     //val tImg = lLay.getChildAt(0) as ImageView
-                    tViwy.text = document.data?.get("title")?.toString()
+                    tViwy.text = document.data?.get("title")?.toString()*/
 
                     db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
                             users ->
                         if(users.isEmpty){
 
-                            Log.w("achiev", "El logro $cnt con valor ir ${document.data["achievementNumber"]} no forma parte de los logros obtenidos => omg")
+                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["rewardCurrencyTwo"].toString(),document.data["iconInactive"].toString())
+
+                            /*Log.w("achiev", "El logro $cnt con valor ir ${document.data["achievementNumber"]} no forma parte de los logros obtenidos => omg")
                             val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
                             val tImg = iLay.getChildAt(0) as ImageView
                             Log.w("achiev", "gonna set inactive ${document.data["achievementNumber"]} => omg")
@@ -153,11 +161,13 @@ class LogrosActivity : AppCompatActivity() {
                                 view.logro_pop_description.text = document.data?.get("description")?.toString()
                                 view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
 
-                            }
+                            }*/
 
                         }
                         else{
 
+                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["rewardCurrencyTwo"].toString(),document.data["iconActive"].toString())
+                            /*
                             val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
                             val tImg = iLay.getChildAt(0) as ImageView
                             Log.w("achiev", "gonna set active ${document.data["achievementNumber"]} => omg")
@@ -204,7 +214,7 @@ class LogrosActivity : AppCompatActivity() {
                                 view.logro_pop_description.text = document.data?.get("description")?.toString()
                                 view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
 
-                            }
+                            }*/
                         }
 
                     }
@@ -218,8 +228,106 @@ class LogrosActivity : AppCompatActivity() {
             }
     }
 
+    private fun generateAchievement(title: String, description: String, rewardOne: String, rewardTwo: String, path: String) {
 
-        private fun checkUser(): String {
+        val linear = LinearLayout(this)
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT, // LinearLayout width
+            LinearLayout.LayoutParams.WRAP_CONTENT // LinearLayout height
+        )
+
+        linear.layoutParams = layoutParams
+        linear.orientation = LinearLayout.VERTICAL
+        val storageRef =
+            FirebaseStorage.getInstance().reference.child("Images/$path")
+
+        val localfile = File.createTempFile("tempImage", "png")
+
+        // generamos image view
+        val imageView = ImageView(this)
+        val r: Resources = resources
+        var px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 100f, r.getDisplayMetrics()
+            )
+        )
+        val params = LinearLayout.LayoutParams(px, px)
+        imageView.layoutParams = params
+
+
+        storageRef.getFile(localfile).addOnSuccessListener {
+
+            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            imageView.setImageBitmap(bitmap)
+            //Generamos TextView
+            val quote = TextView(this)
+            val layoutParams2 = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, // LinearLayout width
+                LinearLayout.LayoutParams.WRAP_CONTENT // LinearLayout height
+            )
+            quote.layoutParams = layoutParams2
+            quote.text = title;
+//        quote.textSize = 24f
+            px = Math.round(
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 90f, r.getDisplayMetrics()
+                )
+            )
+            quote.maxWidth = px
+            quote.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            quote.setTextColor(Color.BLACK)
+            quote.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL)
+            linear.gravity = Gravity.CENTER
+
+            linear.addView(imageView)
+            linear.addView(quote)
+            binding.achievementsTable.addView(linear)
+
+        }
+
+
+
+
+
+        //PULSAR LOGRO PARA POP-UP
+        linear.setOnClickListener {
+            //asignando valores
+            val builder = AlertDialog.Builder(this@LogrosActivity)
+            val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
+
+            //pasando la vista al builder
+            builder.setView(view)
+
+            //creando dialog
+            val dialog = builder.create()
+            dialog.show()
+
+            // cerrar dialog
+            val btnExit = view.btn_pop_up_exit
+            btnExit.setOnClickListener {
+                dialog.dismiss()
+            }
+
+
+
+
+            storageRef.getFile(localfile).addOnSuccessListener {
+
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                view.image_pop_Logro.setImageBitmap(bitmap)
+            }
+
+            view.logro_pop_Title.text = title
+            view.logro_pop_description.text = description
+            view.logro_pop_reward.text = rewardOne
+
+        }
+
+
+    }
+
+
+    private fun checkUser(): String {
         //check user is logged in or not
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser != null){
