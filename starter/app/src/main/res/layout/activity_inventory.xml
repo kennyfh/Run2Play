@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="false"
         android:orientation="vertical">
 
         <LinearLayout
@@ -36,131 +35,27 @@
 
         </LinearLayout>
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.google.codelabs.buildyourfirstmap.MarcadorFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_marcador"
 
 
-        <GridLayout
-            android:id="@+id/achievementsTable"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:columnCount="4">
+            android:id="@+id/layoutInventory"
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/ivLogro1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center"
-                    app:layout_constraintStart_toStartOf="@id/ivLogro1"
-                    app:layout_constraintTop_toBottomOf="@id/ivLogro1"
-                    tools:text="tools" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/ivLogro2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/ivLogro3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/ivLogro4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/ivLogro5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvLogro5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="90dp"
-                    android:text="SuryaChiquita"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-
-        </GridLayout>
+            android:orientation="vertical" />
+        </ScrollView>
 
 
     </LinearLayout>
