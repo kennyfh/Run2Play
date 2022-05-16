@@ -30,7 +30,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="34sp" />
 
 
         </LinearLayout>
@@ -137,8 +137,6 @@
                     android:text="SuryaChiquita"
                     android:textAlignment="center" />
             </LinearLayout>
-
-         
 
 
         </GridLayout>
