@@ -46,16 +46,18 @@
 
             />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <LinearLayout
+        <!--        <ScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+        <GridLayout
+            android:id="@+id/layoutInventory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layoutInventory"
+            android:layout_marginRight="5dp"
+            android:columnCount="4">
 
-            android:orientation="vertical" />
-        </ScrollView>
+        </GridLayout>
+        <!--        </ScrollView>-->
 
 
     </LinearLayout>
