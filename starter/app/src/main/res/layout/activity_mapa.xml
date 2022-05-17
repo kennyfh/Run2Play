@@ -37,6 +37,7 @@
                 android:background="@drawable/style_bordes_text_black"
                 android:backgroundTint="#E1E1E1"
                 android:backgroundTintMode="add"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:text="Inventario" />
 
@@ -52,7 +53,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="30sp" />
 
 
         </LinearLayout>

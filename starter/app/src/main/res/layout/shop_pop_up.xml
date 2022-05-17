@@ -63,6 +63,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
+            android:paddingHorizontal="15dp"
+            android:background="@drawable/style_relleno_text"
             android:id="@+id/buyButton"
             >
             <TextView
@@ -79,14 +81,11 @@
                 android:id="@+id/iconShop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/style_relleno_text"
                 android:minWidth="20dp"
                 android:minHeight="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_cancel_24"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 tools:ignore="SpeakableTextPresentCheck" />
 
 
