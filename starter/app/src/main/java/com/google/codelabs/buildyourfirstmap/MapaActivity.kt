@@ -128,22 +128,15 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocat
 
             }
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
 
     override fun onResume() {
         super.onResume()
+//        binding.fragmentContainerView2.getFragment<MarcadorFragment>().checkCurrencyOne(checkUser())
+//        binding.fragmentContainerView2.getFragment<MarcadorFragment>().checkCurrencyTwo(checkUser())
+
         Log.w("saved", "Resuming...")
     }
     override fun onCreate(savedInstanceState: Bundle?) {

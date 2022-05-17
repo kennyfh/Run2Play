@@ -57,7 +57,7 @@ class RetoRunningActivity : AppCompatActivity(){
     lateinit var timer : CountDownTimer
 
 
-    fun stopClock(){
+    private fun stopClock(){
         if(activeClock){
             timer.cancel()
             activeClock = false
@@ -79,11 +79,6 @@ class RetoRunningActivity : AppCompatActivity(){
 
                     Log.w("TIMER", "Tiempo Restante: $SDuracion")
                     currentTimer = l
-
-
-
-
-
 
                 }
 
@@ -152,15 +147,23 @@ class RetoRunningActivity : AppCompatActivity(){
         }
     }
 
+
+    //var activeClock = true
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         challengeDistance =  savedInstanceState.getDouble("challengeDistance")
+        currentDistance = savedInstanceState.getDouble("currentDistance")
+        currentTimer = savedInstanceState.getLong("currentTimer")
+        activeClock = savedInstanceState.getBoolean("activeClock")
         Log.w("saved", "Recuperando datos")
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Guardamos Challenge distance
         outState.putDouble("challengeDistance", challengeDistance)
+        outState.putDouble("currentDistance",currentDistance)
+        outState.putLong("currentTimer",currentTimer)
+        outState.putBoolean("activeClock",false)
         Log.w("kenny", "Guardamos datos")
 
 
@@ -224,10 +227,6 @@ class RetoRunningActivity : AppCompatActivity(){
                     Log.w("TIMER", "Current timer: $currentTimer")
                     Log.w("TIMER", "Tiempo Restante: $SDuracion")
 
-
-
-
-
             }
 
             override fun onFinish() {
@@ -240,6 +239,7 @@ class RetoRunningActivity : AppCompatActivity(){
         // Añadimos la funcionalidad de poder terminar la actividad cuando le damos a desactivar
         var btnCerrar = findViewById<Button>(R.id.desactivateButton)
         btnCerrar.setOnClickListener {
+            timer.cancel()
             finish()
         }
 
@@ -291,10 +291,6 @@ class RetoRunningActivity : AppCompatActivity(){
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        Log.w("saved", "Resuming...")
-    }
 
 
     override fun onStart() {
@@ -362,6 +358,14 @@ class RetoRunningActivity : AppCompatActivity(){
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.w("saved", "Resuming...")
+//        binding.fragmentContainerView2.getFragment<MarcadorFragment>().checkCurrencyOne(checkUser())
+//        binding.fragmentContainerView2.getFragment<MarcadorFragment>().checkCurrencyTwo(checkUser())
+
+    }
+
 
     /*
     *  ON STOP
@@ -369,7 +373,11 @@ class RetoRunningActivity : AppCompatActivity(){
     override fun onStop() {
         super.onStop()
         stopLocationUpdates()
+        //timer.cancel()
     }
+
+
+
 
     private fun stopLocationUpdates(){
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
