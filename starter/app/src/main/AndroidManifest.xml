@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_r2p"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_r2p"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <meta-data
@@ -33,29 +33,36 @@
         <activity
             android:name=".MapaActivity"
             android:exported="true"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LogrosActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".RetosActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RetoRunningActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".SignUpActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".InventoryActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ShopActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
     </application>
 
