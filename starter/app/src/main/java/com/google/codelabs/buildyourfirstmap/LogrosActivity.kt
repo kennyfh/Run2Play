@@ -90,7 +90,7 @@ class LogrosActivity : AppCompatActivity() {
 
 
     private fun getUserData(){
-        var cnt = 1
+
         var userName = checkUser()
         val db = FirebaseFirestore.getInstance()
         db.collection("achievements").get()
@@ -99,122 +99,21 @@ class LogrosActivity : AppCompatActivity() {
 
                     Log.w("achiev", "${document["achievementNumber"]} => omg")
 
-                    /*val lLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
-                    val tViwy = lLay.getChildAt(1) as TextView
-                    //val tImg = lLay.getChildAt(0) as ImageView
-                    tViwy.text = document.data?.get("title")?.toString()*/
+
 
                     db.collection("userAchievements").whereEqualTo("mix",userName+document.id).get().addOnSuccessListener {
                             users ->
                         if(users.isEmpty){
 
-                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["rewardCurrencyTwo"].toString(),document.data["iconInactive"].toString())
-
-                            /*Log.w("achiev", "El logro $cnt con valor ir ${document.data["achievementNumber"]} no forma parte de los logros obtenidos => omg")
-                            val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
-                            val tImg = iLay.getChildAt(0) as ImageView
-                            Log.w("achiev", "gonna set inactive ${document.data["achievementNumber"]} => omg")
-                            val imageName = document.data["iconInactive"]
-                            val storageRef =
-                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
-
-                            val localfile = File.createTempFile("tempImage", "png")
-                            storageRef.getFile(localfile).addOnSuccessListener {
-
-                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                tImg.setImageBitmap(bitmap)
-
-                            }
+                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["iconInactive"].toString())
 
 
-
-
-
-                            //PULSAR LOGRO PARA POP-UP
-                            lLay.setOnClickListener {
-                                //asignando valores
-                                val builder = AlertDialog.Builder(this@LogrosActivity)
-                                val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
-
-                                //pasando la vista al builder
-                                builder.setView(view)
-
-                                //creando dialog
-                                val dialog = builder.create()
-                                dialog.show()
-
-                                // cerrar dialog
-                                val btnExit = view.btn_pop_up_exit
-                                btnExit.setOnClickListener {
-                                    dialog.dismiss()
-                                }
-
-
-
-                                storageRef.getFile(localfile).addOnSuccessListener {
-
-                                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                    view.image_pop_Logro.setImageBitmap(bitmap)
-                                }
-
-                                view.logro_pop_Title.text = document.data?.get("title")?.toString()
-                                view.logro_pop_description.text = document.data?.get("description")?.toString()
-                                view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
-
-                            }*/
 
                         }
                         else{
 
-                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["rewardCurrencyTwo"].toString(),document.data["iconActive"].toString())
-                            /*
-                            val iLay = binding.achievementsTable.getChildAt(document.data["achievementNumber"].toString().toInt()-1) as LinearLayout
-                            val tImg = iLay.getChildAt(0) as ImageView
-                            Log.w("achiev", "gonna set active ${document.data["achievementNumber"]} => omg")
-                            val imageName = document.data["iconActive"]
-                            val storageRef =
-                                FirebaseStorage.getInstance().reference.child("Images/$imageName")
+                            generateAchievement(document.data["title"].toString(),document.data["description"].toString(),document.data["rewardCurrencyOne"].toString(),document.data["iconActive"].toString())
 
-                            val localfile = File.createTempFile("tempImage", "png")
-                            storageRef.getFile(localfile).addOnSuccessListener {
-
-                                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                tImg.setImageBitmap(bitmap)
-
-                            }
-
-                            //PULSAR LOGRO PARA POP-UP
-                            lLay.setOnClickListener {
-                                //asignando valores
-                                val builder = AlertDialog.Builder(this@LogrosActivity)
-                                val view = layoutInflater.inflate(R.layout.achievement_pop_up, null)
-
-                                //pasando la vista al builder
-                                builder.setView(view)
-
-                                //creando dialog
-                                val dialog = builder.create()
-                                dialog.show()
-
-                                // cerrar dialog
-                                val btnExit = view.btn_pop_up_exit
-                                btnExit.setOnClickListener {
-                                    dialog.dismiss()
-                                }
-
-
-
-                                storageRef.getFile(localfile).addOnSuccessListener {
-
-                                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                                    view.image_pop_Logro.setImageBitmap(bitmap)
-                                }
-
-                                view.logro_pop_Title.text = document.data?.get("title")?.toString()
-                                view.logro_pop_description.text = document.data?.get("description")?.toString()
-                                view.logro_pop_reward.text = document.data?.get("rewardCurrencyOne")?.toString()
-
-                            }*/
                         }
 
                     }
@@ -228,7 +127,7 @@ class LogrosActivity : AppCompatActivity() {
             }
     }
 
-    private fun generateAchievement(title: String, description: String, rewardOne: String, rewardTwo: String, path: String) {
+    private fun generateAchievement(title: String, description: String, rewardOne: String, path: String) {
 
         val linear = LinearLayout(this)
         val layoutParams = LinearLayout.LayoutParams(

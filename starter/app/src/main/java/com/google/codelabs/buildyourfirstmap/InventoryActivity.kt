@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.*
 import android.widget.LinearLayout.LayoutParams
@@ -42,7 +43,7 @@ class InventoryActivity : AppCompatActivity() {
         db.collection("userItems").whereEqualTo("user", uId).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    db.collection("items").whereEqualTo("id", document.data["item"]).get()
+                    db.collection("items").whereEqualTo("id", document.data["item"].toString()).get()
                         .addOnSuccessListener {
                             items ->
                             for(item in items){
@@ -118,6 +119,7 @@ class InventoryActivity : AppCompatActivity() {
         quote.textAlignment = View.TEXT_ALIGNMENT_CENTER
         quote.setTextColor(Color.BLACK)
         quote.setTypeface(Typeface.SANS_SERIF,Typeface.NORMAL)
+        linear.gravity = Gravity.CENTER
 
         linear.addView(imageView)
         linear.addView(quote)

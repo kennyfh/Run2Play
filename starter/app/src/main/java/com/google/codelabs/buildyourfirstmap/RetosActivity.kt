@@ -1,20 +1,31 @@
 package com.google.codelabs.buildyourfirstmap
 
+// import androidx.recyclerview.widget.RecyclerView
+import android.animation.LayoutTransition
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-// import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.marginRight
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.codelabs.buildyourfirstmap.databinding.ActivityRetosBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_reto_running.view.*
 import kotlinx.android.synthetic.main.inforetos_dialog_box.view.*
+import java.io.File
 
 
 class RetosActivity : AppCompatActivity() {
@@ -67,6 +78,178 @@ class RetosActivity : AppCompatActivity() {
 
     }
 
+    private fun generateChallenge(title: String, description: String, reward: String, time: String, distance: String, unlockAchievement: String, challengeNumber: String) {
+       //LINEAR LAYOUT
+        val linear = LinearLayout(this)
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, // LinearLayout width
+            LinearLayout.LayoutParams.WRAP_CONTENT // LinearLayout height
+
+        )
+
+        linear.layoutParams = layoutParams
+        linear.setBackgroundResource(R.drawable.color_gradient_retos)
+        linear.orientation = LinearLayout.VERTICAL
+        val lt = LayoutTransition()
+        lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+        linear.layoutTransition = lt
+
+        //FRAME LAYOUT
+
+        val frame = FrameLayout(this)
+        val frameParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        val r: Resources = resources
+        var px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 6f, r.getDisplayMetrics()
+            )
+        )
+        frame.setPadding(px,px,px,px)
+
+
+
+
+
+
+
+        // generamos image view
+        val imageView = ImageView(this)
+
+         px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 70f, r.getDisplayMetrics()
+            )
+        )
+        val params = FrameLayout.LayoutParams(px, px)
+
+        imageView.layoutParams = params
+
+        px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 14f, r.getDisplayMetrics()
+            )
+        )
+        imageView.setPadding(px,0,px,0)
+        imageView.setImageResource(R.drawable.ic_baseline_directions_run_24)
+
+
+
+
+
+        //Generamos TextView title
+        val quote = TextView(this)
+        val layoutParams2 = FrameLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, // LinearLayout width
+            LinearLayout.LayoutParams.MATCH_PARENT // LinearLayout height
+        )
+        layoutParams2.gravity = Gravity.CENTER
+        quote.layoutParams = layoutParams2
+        quote.text = title
+        quote.setTextColor(Color.BLACK)
+        px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f, r.getDisplayMetrics()
+            )
+        )
+
+        quote.textSize = px.toFloat()
+        quote.gravity = Gravity.CENTER
+
+        quote.setTypeface(quote.getTypeface(), Typeface.BOLD)
+
+
+//
+
+        val button = ImageButton(this)
+        var layoutParams3 = FrameLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT, // LinearLayout width
+
+            LinearLayout.LayoutParams.WRAP_CONTENT // LinearLayout height
+        )
+
+
+        layoutParams3.gravity = Gravity.RIGHT or Gravity.CENTER
+
+        px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10f, r.getDisplayMetrics()
+            )
+        )
+        layoutParams3.setMargins(0,0,px,0)
+        button.layoutParams = layoutParams3
+
+
+
+
+
+
+        button.setBackgroundResource(R.drawable.style_relleno_text)
+        px = Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 40f, r.getDisplayMetrics()
+            )
+        )
+        button.minimumWidth = px
+        button.minimumHeight = px
+        button.setImageResource(R.drawable.ic_baseline_info_24)
+
+        button.setOnClickListener{
+            //asignando valores
+            val builder = AlertDialog.Builder(this@RetosActivity)
+            val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
+
+            //pasando la vista al builder
+            builder.setView(view)
+
+            //creando dialog
+            val dialog = builder.create()
+            dialog.show()
+
+            // cerrar dialog
+            val btnExit = view.imageBtnExitInfo
+            btnExit.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            view.infoTituloReto.text = title
+            view.infoDescripcionReto.text = description
+            view.infoDistanciaReto.text = distance
+            view.infoTiempoReto.text = time
+            view.infoRecompensaReto.text = reward
+
+        }
+
+        frame.setOnClickListener {
+            val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
+            val intent = Intent(applicationContext,RetoRunningActivity::class.java)
+            intent.putExtra("title",title)
+            intent.putExtra("description",description)
+            intent.putExtra("distance",distance)
+            intent.putExtra("time",time)
+            intent.putExtra("reward",reward)
+            intent.putExtra("unlockAchievement",unlockAchievement)
+            intent.putExtra("challengeNumber",challengeNumber)
+
+
+            startActivity(intent)
+        }
+
+
+
+
+
+        frame.addView(imageView)
+        frame.addView(quote)
+        frame.addView(button)
+
+        linear.addView(frame)
+        binding.challengesTable.addView(linear)
+
+    }
+
     private fun fillChallenges(uId: String) {
         val db = FirebaseFirestore.getInstance()
         var cnt = 0
@@ -74,56 +257,12 @@ class RetosActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents){
 
-                    var tablAchiev = binding.challengesTable.getChildAt(cnt) as LinearLayout
-                    var framAchiev = tablAchiev.getChildAt(0) as FrameLayout
-                    var titleBind = framAchiev.getChildAt(1) as TextView
-                    titleBind.text = document.data?.get("title")?.toString()
-                    var descripBind = framAchiev.getChildAt(2) as TextView
-                    descripBind.text = document.data?.get("description")?.toString()
-                    var infButton = framAchiev.getChildAt(4) as ImageButton
 
-                    infButton.setOnClickListener{
-                        //asignando valores
-                        val builder = AlertDialog.Builder(this@RetosActivity)
-                        val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
-
-                        //pasando la vista al builder
-                        builder.setView(view)
-
-                        //creando dialog
-                        val dialog = builder.create()
-                        dialog.show()
-
-                        // cerrar dialog
-                        val btnExit = view.imageBtnExitInfo
-                        btnExit.setOnClickListener {
-                            dialog.dismiss()
-                        }
-
-                        view.infoTituloReto.text = document.data?.get("title")?.toString()
-                        view.infoDescripcionReto.text = document.data?.get("description")?.toString()
-                        view.infoDistanciaReto.text = document.data?.get("distance")?.toString()
-                        view.infoTiempoReto.text = document.data?.get("time")?.toString()
-                        view.infoRecompensaReto.text = document.data?.get("reward")?.toString()
-
-                    }
-
-                    framAchiev.setOnClickListener {
-                        val view = layoutInflater.inflate(R.layout.inforetos_dialog_box, null)
-                        val intent = Intent(applicationContext,RetoRunningActivity::class.java)
-                        intent.putExtra("title",document.data?.get("title")?.toString())
-                        intent.putExtra("description",document.data?.get("description")?.toString())
-                        intent.putExtra("distance",document.data?.get("distance")?.toString())
-                        intent.putExtra("time",document.data?.get("time")?.toString())
-                        intent.putExtra("reward",document.data?.get("reward")?.toString())
-                        intent.putExtra("unlockAchievement",document.data?.get("unlockAchievement")?.toString())
-                        intent.putExtra("challengeNumber",document.data?.get("challengeNumber")?.toString())
+                generateChallenge(document.data["title"].toString(),document.data["description"].toString(),document.data["reward"].toString(),
+                    document.data["time"].toString(),document.data["distance"].toString(),document.data["unlockAchievement"].toString(),document.data["challengeNumber"].toString())
 
 
-                        startActivity(intent)
-                    }
 
-                    cnt += 1
                 }
             }
             .addOnFailureListener { exception->

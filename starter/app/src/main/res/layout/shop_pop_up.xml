@@ -8,7 +8,7 @@
     android:paddingBottom="20dp">
 
     <ImageView
-        android:id="@+id/image_pop_Logro"
+        android:id="@+id/shop_img"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="40dp"
@@ -27,7 +27,7 @@
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_cancel_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image_pop_Logro"
+        app:layout_constraintTop_toTopOf="@id/shop_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
@@ -37,10 +37,10 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/image_pop_Logro">
+        app:layout_constraintTop_toBottomOf="@id/shop_img">
 
         <TextView
-            android:id="@+id/logro_pop_Title"
+            android:id="@+id/shop_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -49,7 +49,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/logro_pop_description"
+            android:id="@+id/shop_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -57,6 +57,42 @@
             android:hint="Description"
             android:text="descripcion Logro"
             android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/buyButton"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price"
+                android:textAlignment="center"
+                android:text="OMG"
+                android:layout_marginRight="5dp">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/iconShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/style_relleno_text"
+                android:minWidth="20dp"
+                android:minHeight="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_cancel_24"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                tools:ignore="SpeakableTextPresentCheck" />
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

@@ -18,5 +18,7 @@
     <color name="tab_background_unselected">#8F61E1</color>
     <color name="marcador">#673AB7</color>
     <color name="red_temporazer">#EF7970</color>
+    <color name="bit_color">#E0A633</color>
+    <color name="diamond_color">#2196F3</color>
 
 </resources>

@@ -409,6 +409,25 @@ class RetoRunningActivity : AppCompatActivity(){
 
                                     Log.w("reward", "Has ganado un logro ")
 
+                                    db.collection("users").whereEqualTo("uId", uId).get()
+                                        .addOnSuccessListener { users ->
+                                            for (user in users) {
+                                                Log.w("reward", "Has ganado recompensas segundarias ")
+                                                //binding.fragmentContainerView3.getFragment<MarcadorFragment>().checkCurrencyTwo(checkUser())
+                                                var currentCurrency = user.data["currencyOne"].toString().toInt()
+                                                db.collection("users").document(user.id).update("currencyOne",currentCurrency+document.data["rewardCurrencyOne"].toString().toInt())
+                                                startActivity(Intent(this, RetosActivity::class.java))
+
+
+                                            }
+                                        }
+                                        .addOnFailureListener { exception ->
+                                            Log.w("tag", "Error getting documents ", exception)
+
+                                        }
+
+
+
                                 }
 
                                 else{
