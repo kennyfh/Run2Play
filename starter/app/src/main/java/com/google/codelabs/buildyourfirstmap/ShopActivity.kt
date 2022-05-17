@@ -148,7 +148,7 @@ class ShopActivity : AppCompatActivity() {
             if(bitPrice>0){
                 view.price.text = bitPrice.toString()
                 view.iconShop.setImageResource(R.drawable.ic_baseline_currency_bitcoin_24)
-                view.iconShop.setBackgroundColor(Color.YELLOW)
+                view.iconShop.setBackgroundColor(Color.parseColor("#E0A633"))
                 view.iconShop.imageTintMode = PorterDuff.Mode.ADD
                 view.setBackgroundResource(R.drawable.style_bordes_text)
 
@@ -157,7 +157,7 @@ class ShopActivity : AppCompatActivity() {
             else{
                 view.price.text = diamondPrice.toString()
                 view.iconShop.setImageResource(R.drawable.ic_baseline_diamond_24)
-                view.iconShop.setBackgroundColor(Color.CYAN)
+                view.iconShop.setBackgroundColor(Color.parseColor("#2196F3"))
                 view.iconShop.imageTintMode = PorterDuff.Mode.ADD
                 view.setBackgroundResource(R.drawable.style_bordes_text)
             }

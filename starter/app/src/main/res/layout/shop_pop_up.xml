@@ -85,6 +85,7 @@
                 android:minWidth="20dp"
                 android:minHeight="20dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
 
